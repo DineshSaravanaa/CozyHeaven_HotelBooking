@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.hotelbooking.cozyheaven.service.PaymentService;
 
 @RestController
 @RequestMapping("/api/report")
+@CrossOrigin(origins = {"http://localhost:5174/"})
 public class ReportController
 {
 
@@ -118,6 +120,7 @@ public class ReportController
 	// Get all Reviews for the Customer Analysis card in UI then we can filter the ratings and count of reviews 
 	//Once we are done with that filteration we need to create the Chart and Diagrams
 	
+	//13 - Find the list of hotels on the basis of its revenue
 	
 	
 	
