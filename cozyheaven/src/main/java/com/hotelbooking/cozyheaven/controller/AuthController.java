@@ -24,7 +24,7 @@ import com.hotelbooking.cozyheaven.service.MyUserService;
 @RestController
 @RequestMapping("/api/auth")
 
-@CrossOrigin(origins = {"http://localhost:5174/"})
+@CrossOrigin(origins = {"http://localhost:5173/"})
 public class AuthController {
 	@Autowired
 	private MyUserService myUserService;

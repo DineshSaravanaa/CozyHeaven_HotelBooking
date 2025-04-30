@@ -21,7 +21,7 @@ import com.hotelbooking.cozyheaven.service.CustomerService;
 
 @RestController
 @RequestMapping("/api/customer")
-@CrossOrigin(origins = {"http://localhost:5174/"})
+@CrossOrigin(origins = {"http://localhost:5173/"})
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
