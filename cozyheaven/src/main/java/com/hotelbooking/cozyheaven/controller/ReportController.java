@@ -16,6 +16,7 @@ import com.hotelbooking.cozyheaven.model.Payment;
 import com.hotelbooking.cozyheaven.service.BookingService;
 import com.hotelbooking.cozyheaven.service.HotelService;
 import com.hotelbooking.cozyheaven.service.PaymentService;
+import com.hotelbooking.cozyheaven.service.ReportService;
 
 
 
@@ -31,6 +32,8 @@ public class ReportController
 	private PaymentService paymentService;
 	@Autowired
 	private HotelService hotelService;
+	@Autowired
+	private ReportService reportService;
 	
 	// 1 - list of bookings
 	@GetMapping("/listofbookings")
@@ -120,9 +123,13 @@ public class ReportController
 	// Get all Reviews for the Customer Analysis card in UI then we can filter the ratings and count of reviews 
 	//Once we are done with that filteration we need to create the Chart and Diagrams
 	
-	//13 - Find the list of hotels on the basis of its revenue
 	
-	
+	//13 - Find the total amounts of each months and store it in array then give an response to ui
+	@GetMapping("/monthly-revenue")
+	public double[] getAllAmountsForEachMonth()
+	{
+		return reportService.calculateMonthlyRevenue();
+	}
 	
 	
 	
