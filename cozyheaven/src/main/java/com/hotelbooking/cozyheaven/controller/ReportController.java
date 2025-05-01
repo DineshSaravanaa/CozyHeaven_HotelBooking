@@ -131,7 +131,12 @@ public class ReportController
 		return reportService.calculateMonthlyRevenue();
 	}
 	
-	
+	//14 - Find the total no of bookings on the basis of monthly wise and store it in an array then pass to UI
+	@GetMapping("/monthly-bookings")
+	public double[] getAllBookingCountEachMonth()
+	{
+		return reportService.calculateMonthlyBookingCount();
+	}
 	
 	
 	
