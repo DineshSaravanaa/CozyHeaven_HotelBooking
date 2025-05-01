@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
+import com.hotelbooking.cozyheaven.exception.InvalidUsernameException;
 import com.hotelbooking.cozyheaven.model.Admin;
 import com.hotelbooking.cozyheaven.model.User;
 import com.hotelbooking.cozyheaven.service.AdminService;
@@ -28,11 +29,9 @@ public class AdminController {
     private AuthService authService;
 
     // To Add Admin
-    @PostMapping("/add/{userid}")
-    public Admin addAdmin(@RequestBody Admin admin, @PathVariable int userid) throws InvalidIDException {
+    @PostMapping("/add")
+    public Admin addAdmin(@RequestBody Admin admin) throws InvalidIDException, InvalidUsernameException {
 
-        User user = authService.getUserById(userid);
-        admin.setUser(user);
         return adminService.addAdmin(admin);
     }
 
@@ -44,12 +43,12 @@ public class AdminController {
 
     // To Update Admin Info
     @PutMapping("/update/{adminid}")
-    public Admin updateInfo(@PathVariable int adminid, @RequestBody Admin request) throws InvalidIDException {
+    public Admin updateInfo(@PathVariable int adminid, @RequestBody Admin request) throws InvalidIDException, InvalidUsernameException {
         Admin admin = adminService.getAdminByID(adminid);
         admin.setName(request.getName());
         admin.setEmail(request.getEmail());
         admin.setContact(request.getContact());
         admin.setLast_Log(request.getLast_Log());
-        return adminService.addAdmin(admin);
+        return adminService.updateAdmin(admin);
     }
 }

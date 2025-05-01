@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
+import com.hotelbooking.cozyheaven.exception.InvalidUsernameException;
 import com.hotelbooking.cozyheaven.model.Admin;
+import com.hotelbooking.cozyheaven.model.User;
 import com.hotelbooking.cozyheaven.repository.AdminRepository;
 
 @Service
@@ -14,9 +16,13 @@ public class AdminService {
 
     @Autowired
     private AdminRepository adminRepository;
+    @Autowired
+    private AuthService authService;
 
     // Add a new Admin
-    public Admin addAdmin(Admin admin) throws InvalidIDException {
+    public Admin addAdmin(Admin admin) throws InvalidIDException, InvalidUsernameException {
+    	User user = admin.getUser();
+    	authService.signUp(user);
         return adminRepository.save(admin);
     }
 

@@ -26,6 +26,9 @@ public class User implements UserDetails {
 
 	@Column(nullable = false)
 	private String password;
+	
+	@Column(nullable = false)
+	private String email;
 
 	private String role;
 	
@@ -34,13 +37,7 @@ public class User implements UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String username, String email, String password, String role) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.role = role;
-	}
+	
 
 	public int getId() {
 		return id;
@@ -87,10 +84,14 @@ public class User implements UserDetails {
 
 	}
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, password, role, username);
+		return Objects.hash(email, id, password, role, username);
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -101,10 +102,34 @@ public class User implements UserDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return id == other.id && Objects.equals(password, other.password) && Objects.equals(role, other.role)
-				&& Objects.equals(username, other.username);
+		return Objects.equals(email, other.email) && id == other.id && Objects.equals(password, other.password)
+				&& Objects.equals(role, other.role) && Objects.equals(username, other.username);
 	}
 
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public User(int id, String username, String password, String email, String role) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+	}
+
+	
 	
 
 	

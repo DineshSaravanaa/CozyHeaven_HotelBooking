@@ -24,7 +24,7 @@ public class AuthService {
 		if (user1 != null)
 			throw new InvalidUsernameException("User Already Exist");
 		if (user.getRole() == null)
-			user.setRole("UserDefault");
+			user.setRole("Customer");
 		String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
 		
