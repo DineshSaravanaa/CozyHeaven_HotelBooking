@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hotelbooking.cozyheaven.model.Booking;
 import com.hotelbooking.cozyheaven.model.Payment;
+import com.hotelbooking.cozyheaven.repository.BookingRepository;
 
 
 @Service
@@ -15,6 +17,8 @@ public class ReportService
 {
 	@Autowired
 	private PaymentService paymentService;
+	@Autowired
+	private BookingRepository bookingRepository;
 //For dataset in UI Projection of Charts
 	public double[] calculateMonthlyRevenue() 
 	{
@@ -44,6 +48,24 @@ public class ReportService
 	        LocalDateTime paymentDate = LocalDateTime.parse(dateString, formatter);
 	        return paymentDate.getMonthValue();
 	    }
+///////////////////////////////////////////////////		Monthly Bookings Count Goes Here    ///////////////////////////////////////////////////////////////////////////////////////////
+
+	 public double[] calculateMonthlyBookingCount() 
+		{
+			List<Booking> bookinglist = bookingRepository.findAll();
+			return calculateBookingCount(bookinglist);
+		}
+		public double[] calculateBookingCount(List<Booking> bookings)
+		{
+			double[] monthlyBooking = new double[12];
+			for(Booking booking : bookings)
+			{
+				String bookingDate = booking.getBookedAt().toString();
+				int month = extractMonthFromDate(bookingDate);
+				monthlyBooking[month-1] += 1;
+			}
+			return monthlyBooking;
+		}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
