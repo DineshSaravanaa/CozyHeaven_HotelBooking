@@ -50,22 +50,22 @@ public class ReportService
 	    }
 ///////////////////////////////////////////////////		Monthly Bookings Count Goes Here    ///////////////////////////////////////////////////////////////////////////////////////////
 
-	public double[] calculateMonthlyBookingCount() 
-	{
-		List<Booking> bookinglist = bookingRepository.findAll();
-		return calculateBookingCount(bookinglist);
-	}
-	public double[] calculateBookingCount(List<Booking> bookings)
-	{
-		double[] monthlyBooking = new double[12];
-		for(Booking booking : bookings)
+	 public double[] calculateMonthlyBookingCount() 
 		{
-			String bookingDate = booking.getBookedAt().toString();
-			int month = extractMonthFromDate(bookingDate);
-			monthlyBooking[month-1] += 1;
+			List<Booking> bookinglist = bookingRepository.findAll();
+			return calculateBookingCount(bookinglist);
 		}
-		return monthlyBooking;
-	}
+		public double[] calculateBookingCount(List<Booking> bookings)
+		{
+			double[] monthlyBooking = new double[12];
+			for(Booking booking : bookings)
+			{
+				String bookingDate = booking.getBookedAt().toString();
+				int month = extractMonthFromDate(bookingDate);
+				monthlyBooking[month-1] += 1;
+			}
+			return monthlyBooking;
+		}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
