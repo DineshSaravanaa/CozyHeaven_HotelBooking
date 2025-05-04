@@ -1,5 +1,6 @@
 package com.hotelbooking.cozyheaven.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,18 +64,18 @@ public class CustomerController {
 //	}
 
 	// Update customer
-    @PutMapping("/update/{id}")
-	public Customer updateCustomer(@PathVariable int id, @RequestBody Customer newValue) throws InvalidIDException, InvalidUsernameException
-	{
-			Customer customer = customerService.getCustomerById(id);
-			if(newValue.getName() != null)
-				customer.setName(newValue.getName());
-			if(newValue.getAddress() != null)
-				customer.setAddress(newValue.getAddress());
-			if(newValue.getContact() != null)
-				customer.setContact(newValue.getContact());
-			return customerService.addCustomer(customer);
-	}
+//    @PutMapping("/update/{id}")
+//	public Customer updateCustomer(@PathVariable int id, @RequestBody Customer newValue) throws InvalidIDException, InvalidUsernameException
+//	{
+//			Customer customer = customerService.getCustomerById(id);
+//			if(newValue.getName() != null)
+//				customer.setName(newValue.getName());
+//			if(newValue.getAddress() != null)
+//				customer.setAddress(newValue.getAddress());
+//			if(newValue.getContact() != null)
+//				customer.setContact(newValue.getContact());
+//			return customerService.addCustomer(customer);
+//	}
 
 	// Delete customer
 	@DeleteMapping("/delete/{customerId}")
@@ -82,6 +83,36 @@ public class CustomerController {
 	{
 	       customerService.deleteCustomer(customerId);
     }
+	
+	
+	@PutMapping("/profile/update")
+	public Customer updateCustomerProfile(Principal principal,@RequestBody Customer customer)
+	{
+		String username = principal.getName();
+	    Customer existingCustomer = customerService.getByUsername(username);
 
+	    if (customer.getName() != null) {
+	        existingCustomer.setName(customer.getName());
+	    }
+	    if (customer.getAddress() != null) {
+	        existingCustomer.setAddress(customer.getAddress());
+	    }
+	    if (customer.getContact() != null) {
+	        existingCustomer.setContact(customer.getContact());
+	    }
+	    if(customer.getEmail()!=null)
+	    {
+	    	existingCustomer.setEmail(customer.getEmail());
+	    }
+		return customerService.updateCustomer(existingCustomer);
+	}
+
+	//Find the customer details with the userID
+	@GetMapping("/getcustomer")
+	public Customer getCustomerByUserId(Principal principal)
+	{
+		 String username = principal.getName();
+		    return customerService.getByUsername(username);
+	}
 
 }

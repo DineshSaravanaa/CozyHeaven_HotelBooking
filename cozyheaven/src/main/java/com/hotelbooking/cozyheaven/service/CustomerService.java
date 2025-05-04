@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import com.hotelbooking.cozyheaven.controller.CustomerController;
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.exception.InvalidUsernameException;
 import com.hotelbooking.cozyheaven.model.Customer;
@@ -18,6 +18,8 @@ import com.hotelbooking.cozyheaven.repository.CustomerRepository;
 @Service
 public class CustomerService 
 {
+
+
 	@Autowired
 	private CustomerRepository customerRepository;
 	
@@ -29,6 +31,9 @@ public class CustomerService
 	
 	@Autowired
 	private AuthService authService;
+
+
+
 	
 
 	public Customer addCustomer(Customer customer) throws InvalidUsernameException 
@@ -86,5 +91,14 @@ public class CustomerService
 		}
 		return optional.get();
 	}
+
+	public Customer getByUsername(String customerUserName) {
+		return customerRepository.findByUserUsername(customerUserName);
+	}
+
+	public Customer updateCustomer(Customer existingCustomer) {
+		return customerRepository.save(existingCustomer);
+	}
+
 
 }
