@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hotelbooking.cozyheaven.model.Booking;
 import com.hotelbooking.cozyheaven.model.Hotel;
 import com.hotelbooking.cozyheaven.model.Payment;
+import com.hotelbooking.cozyheaven.model.Review;
+import com.hotelbooking.cozyheaven.repository.ReviewRepository;
 import com.hotelbooking.cozyheaven.service.BookingService;
 import com.hotelbooking.cozyheaven.service.HotelService;
 import com.hotelbooking.cozyheaven.service.PaymentService;
 import com.hotelbooking.cozyheaven.service.ReportService;
-
 
 
 @RestController
@@ -25,6 +26,8 @@ import com.hotelbooking.cozyheaven.service.ReportService;
 @CrossOrigin(origins = {"http://localhost:5174/"})
 public class ReportController
 {
+
+
 
 	@Autowired
 	private BookingService bookingService;
@@ -34,6 +37,9 @@ public class ReportController
 	private HotelService hotelService;
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private ReviewRepository reviewRepository;
+
 	
 	// 1 - list of bookings
 	@GetMapping("/listofbookings")
@@ -137,7 +143,27 @@ public class ReportController
 		{
 			return reportService.calculateMonthlyBookingCount();
 		}
-	
+		
+	//15 - get all Reviews
+		@GetMapping("/all-reviews-count")
+		public double getAllReviews()
+		{
+			return reviewRepository.count();
+		}
+	//16 - getting the list of ratings count for the graph data for frontend
+		@GetMapping("/ratings-count")
+		public double[] getRatingsCountForFrontend()
+		{
+			List<Review> reviewList = reviewRepository.findAll();
+			double[] ratingsCount = new double[] {
+				    reviewList.stream().filter(r -> r.getRating() == 1).count(),
+				    reviewList.stream().filter(r -> r.getRating() == 2).count(),
+				    reviewList.stream().filter(r -> r.getRating() == 3).count(),
+				    reviewList.stream().filter(r -> r.getRating() == 4).count(),
+				    reviewList.stream().filter(r -> r.getRating() == 5).count()
+				};
+			return ratingsCount;
+		}
 	
 	
 	
