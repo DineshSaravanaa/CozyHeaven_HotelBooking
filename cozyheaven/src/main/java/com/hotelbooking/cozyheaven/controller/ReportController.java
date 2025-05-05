@@ -165,6 +165,12 @@ public class ReportController
 			return ratingsCount;
 		}
 	
+		//17 - get List of Reviews
+		@GetMapping("/reviews-list")
+		public List<Review> getListOfReview()
+		{
+			return reviewRepository.findAll();
+		}
 	
 	
 	

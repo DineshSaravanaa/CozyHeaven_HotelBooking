@@ -114,5 +114,4 @@ public class CustomerController {
 		 String username = principal.getName();
 		    return customerService.getByUsername(username);
 	}
-
 }
