@@ -52,10 +52,10 @@ public class SecurityConfig {
 						.requestMatchers("/api/hotel/deletionrequested").hasAuthority("HotelOwner")
 						.requestMatchers("/api/hotel/recent/bookings/{ownerid}").hasAuthority("HotelOwner")
 						.requestMatchers("/api/cancellationrequest/add/{bookingID}").hasAuthority("Customer")
-						.requestMatchers("/api/cancellationrequest/getall").hasAuthority("HotelOwner")
-						.requestMatchers("/api/cancellationrequest/getbyhotel/{hotelid}").hasAuthority("HotelOwner")
-						.requestMatchers("/api/cancellationrequest/getbyapproved").hasAuthority("HotelOwner")
-						.requestMatchers("/api/cancellationrequest/getbyrejected").hasAuthority("HotelOwner")
+						.requestMatchers("/api/cancellationrequest/getall").hasAnyAuthority("HotelOwner","Admin")
+						.requestMatchers("/api/cancellationrequest/getbyhotel/{hotelid}").hasAnyAuthority("HotelOwner","Admin")
+						.requestMatchers("/api/cancellationrequest/getbyapproved").hasAnyAuthority("HotelOwner","Admin")
+						.requestMatchers("/api/cancellationrequest/getbyrejected").hasAnyAuthority("HotelOwner","Admin")
 						.requestMatchers("/api/cancellationrequest/accept/{cancellationID}").hasAuthority("HotelOwner")
 						.requestMatchers("/api/cancellationrequest/reject/{cancellationID}").hasAuthority("HotelOwner")
 						.requestMatchers("/api/refund/proceed/{cancellationID}").hasAuthority("HotelOwner")
@@ -74,11 +74,29 @@ public class SecurityConfig {
 						.requestMatchers("/api/discount/add/{hid}/{sid}").hasAuthority("Admin")//
 						.requestMatchers("/api/customer/add").permitAll()
 						.requestMatchers("/api/discount/gethotelname/{discountname}").hasAnyAuthority("Admin","Customer")
+						.requestMatchers("/api/report/listofbookings").hasAuthority("Admin")
+						.requestMatchers("/api/report/countofbookings").hasAuthority("Admin")
+						.requestMatchers("/api/report/getbooking/{bookdate}").hasAuthority("Admin")
+						.requestMatchers("/api/report/getlistofpayment").hasAuthority("Admin")
+						.requestMatchers("/api/report/getamountlist").hasAuthority("Admin")
+						.requestMatchers("/api/report//getlistofpayments/{paymentdate}").hasAuthority("Admin")//
+						.requestMatchers("/api/report/allhotels").hasAuthority("Admin")
+						.requestMatchers("/api/report/totalamount/{hotelid}").hasAuthority("Admin")
+						.requestMatchers("/api/report/listofbookingsbycustom/{fromdate}/{todate}").hasAuthority("Admin")
+						.requestMatchers("/api/report/monthly-revenue").hasAuthority("Admin")//
+						.requestMatchers("/api/report/monthly-bookings").hasAuthority("Admin")
+						.requestMatchers("/api/report/all-reviews-count").hasAuthority("Admin")
+						.requestMatchers("/api/report/ratings-count").hasAuthority("Admin")
+						.requestMatchers("/api/report/reviews-list").hasAuthority("Admin")
+						.requestMatchers("/api/cancellationrequest/getall").hasAuthority("Admin")
+						.requestMatchers("/api/admin/getadmin").hasAuthority("Admin")
+						.requestMatchers("/api/admin/profile/update").hasAuthority("Admin")
 						
 						
 						
 						
-						.anyRequest().permitAll()
+						
+						.anyRequest().authenticated()
 						)
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

@@ -1,7 +1,7 @@
 package com.hotelbooking.cozyheaven.service;
 
 import java.util.Optional;
-
+import com.hotelbooking.cozyheaven.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,16 @@ import com.hotelbooking.cozyheaven.repository.AdminRepository;
 @Service
 public class AdminService {
 
+    private final ReportRepository reportRepository;
+
     @Autowired
     private AdminRepository adminRepository;
     @Autowired
     private AuthService authService;
+
+    AdminService(ReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
+    }
 
     // Add a new Admin
     public Admin addAdmin(Admin admin) throws InvalidIDException, InvalidUsernameException {
@@ -37,7 +43,13 @@ public class AdminService {
     }
 
     // Update Admin details
-    public Admin updateAdmin(Admin admin) {
-        return adminRepository.save(admin);
-    }
+    public Admin updateAdmin(Admin existingAdmin) {
+		return adminRepository.save(existingAdmin);
+	}
+
+	public Admin getByUsername(String username) {
+		return adminRepository.findByUserUsername(username);
+	}
+
+	
 }

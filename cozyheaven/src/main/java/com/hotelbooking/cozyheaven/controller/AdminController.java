@@ -1,5 +1,7 @@
 package com.hotelbooking.cozyheaven.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,13 +44,28 @@ public class AdminController {
     }
 
     // To Update Admin Info
-    @PutMapping("/update/{adminid}")
-    public Admin updateInfo(@PathVariable int adminid, @RequestBody Admin request) throws InvalidIDException, InvalidUsernameException {
-        Admin admin = adminService.getAdminByID(adminid);
-        admin.setName(request.getName());
-        admin.setEmail(request.getEmail());
-        admin.setContact(request.getContact());
-        admin.setLast_Log(request.getLast_Log());
-        return adminService.updateAdmin(admin);
-    }
+    @PutMapping("/profile/update")
+	public Admin updateadminProfile(Principal principal,@RequestBody Admin admin)
+	{
+		String username = principal.getName();
+	    Admin existingAdmin = adminService.getByUsername(username);
+
+	    if (admin.getName() != null) {
+	        existingAdmin.setName(admin.getName());
+	    }
+	    if (admin.getContact() != null) {
+	        existingAdmin.setContact(admin.getContact());
+	    }
+	    if(admin.getEmail()!=null)
+	    {
+	    	existingAdmin.setEmail(admin.getEmail());
+	    }
+		return adminService.updateAdmin(existingAdmin);
+	}
+    @GetMapping("/getadmin")
+	public Admin getAdminByUserName(Principal principal)
+	{
+		 String username = principal.getName();
+		    return adminService.getByUsername(username);
+	}
 }
