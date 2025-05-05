@@ -6,4 +6,6 @@ import com.hotelbooking.cozyheaven.model.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer>{
 
+	Admin findByUserUsername(String username);
+
 }
