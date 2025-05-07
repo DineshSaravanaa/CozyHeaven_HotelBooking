@@ -49,7 +49,7 @@ class DiscountServiceTest {
         discount1.setCoupon("SUMMER10");
         discount1.setDescription("10% off for summer");
         discount1.setPercentage(10);
-        discount1.setValidFromm(LocalDate.of(2024, 6, 1)); // Note: validFromm typo from model
+        discount1.setValidFromm(LocalDate.of(2024, 6, 1)); // validFromm typo from model
         discount1.setValidTo(LocalDate.of(2024, 8, 31));
         discount1.setHotel(hotel1);
         discount1.setSeason(season1);
