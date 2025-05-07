@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
+import com.hotelbooking.cozyheaven.model.Hotel;
 import com.hotelbooking.cozyheaven.model.HotelOwner;
 import com.hotelbooking.cozyheaven.repository.HotelOwnerRepository;
+import com.hotelbooking.cozyheaven.repository.HotelRepository;
 
 @Service
 public class HotelOwnerService {
 	@Autowired
 	private HotelOwnerRepository hotelOwnerRepository;
+	@Autowired
+	private HotelRepository hotelRepository;
 
 	// Saving HotelOwner In DB
 	public HotelOwner addHotelOwner(HotelOwner hotelOwner) {
@@ -33,5 +37,12 @@ public class HotelOwnerService {
 		
 		return hotelOwnerRepository.findByUserUsername(name);
 	}
+	 public Hotel addHotel(Hotel hotel) {
+	        return hotelRepository.save(hotel);
+	    }
+
+		 public HotelOwner getOwnerById(Long ownerId) {
+		        return hotelOwnerRepository.findById(ownerId).orElse(null);  // Return null if not found
+		    }
 
 }

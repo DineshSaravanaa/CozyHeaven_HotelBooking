@@ -3,9 +3,12 @@ package com.hotelbooking.cozyheaven.controller;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,9 +33,11 @@ import com.hotelbooking.cozyheaven.service.HotelOwnerService;
 import com.hotelbooking.cozyheaven.service.HotelService;
 import com.hotelbooking.cozyheaven.service.ReviewService;
 
+
+
 @RestController
 @RequestMapping("/api/hotel")
-@CrossOrigin(origins = {"http://localhost:5173/"})
+
 public class HotelController {
 	@Autowired
 	private HotelService hotelService;
@@ -42,6 +47,11 @@ public class HotelController {
 	private BookingService bookingService;
 	@Autowired
 	private ReviewService reviewService;
+	
+	
+	private static final Logger logger = LoggerFactory.getLogger(HotelController.class);
+	
+	
 
 	// Adding Hotel With Owner ID
     @PostMapping("/add")
@@ -221,9 +231,61 @@ public class HotelController {
 		.filter(b->b.getBookedAt().isAfter(oneWeekAgo))
 		.limit(7).toList();
 	}
+	 @PostMapping("/add/{ownerId}")
+	    public Hotel addHotelWithOwner(@PathVariable Long ownerId, @RequestBody Hotel hotel) throws InvalidIDException {
+	        // Fetch the HotelOwner by ID
+	        HotelOwner owner = hotelOwnerService.getOwnerById(ownerId);
+	        
+	        if (owner == null) {
+	            throw new InvalidIDException("Hotel Owner not found with ID: " + ownerId);
+	        }
+
+	        // Set the HotelOwner for the hotel
+	        hotel.setHotelOwner(owner);
+	        hotel.setStatus(HotelStatus.PENDING);  // Assuming default status is pending
+	        hotel.setIsAvailable(HotelAvailability.NO);  // Assuming default availability is NO
+	        
+	        // Save and return the hotel
+	        return hotelService.addHotel(hotel);
+	    }
+	 
+	 
+	 // Getting all the list of hotels
+	    @GetMapping("/all")
+	    public List<Hotel> getAll() {
+	        logger.info("Fetching all hotels");
+	        List<Hotel> hotels = hotelService.getAll();
+	        logger.info("Total hotels found: {}", hotels.size());
+	        return hotels;
+	    }
+
+	    // Updating hotel availability
+	    @PutMapping("/{hotelId}/availability")
+	    public ResponseEntity<Hotel> updateHotelAvailability(
+	            @PathVariable Long hotelId,
+	            @RequestBody Map<String, String> requestBody) {
+
+	        logger.info("Received request to update availability for Hotel ID: {}", hotelId);
+
+	        String availabilityValue = requestBody.get("isAvailable");
+
+	        try {
+	            HotelAvailability availability = HotelAvailability.valueOf(availabilityValue);
+	            Hotel updatedHotel = hotelService.updateAvailability(hotelId, availability);
+	            logger.info("Updated availability for Hotel ID: {} to {}", hotelId, availability);
+	            return ResponseEntity.ok(updatedHotel);
+	        } catch (IllegalArgumentException e) {
+	            logger.error("Invalid availability value provided: {}", availabilityValue);
+	            return ResponseEntity.badRequest().body(null);
+	        }
+	    }
+	}
+
+	
+	 
 	
 
-}
+
 
 
 

@@ -1,5 +1,6 @@
 package com.hotelbooking.cozyheaven.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,17 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotelbooking.cozyheaven.enums.DeletionRequest;
+import com.hotelbooking.cozyheaven.enums.HotelAvailability;
 import com.hotelbooking.cozyheaven.enums.HotelStatus;
-import com.hotelbooking.cozyheaven.enums.Status;
+
 import com.hotelbooking.cozyheaven.exception.InvalidHotelNameException;
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.model.Hotel;
+
 import com.hotelbooking.cozyheaven.repository.HotelRepository;
 
 @Service
 public class HotelService {
 	@Autowired
 	private HotelRepository hotelRepository;
+	
+	@Autowired
+	private  HotelOwnerService hotelOwnerService;
+	
+	
 
 	// To Save Hotel in DB
 	public Hotel addHotel(Hotel hotel) {
@@ -70,5 +78,34 @@ public class HotelService {
 	{
 		return hotelRepository.findAll();
 	}
+
+	public List<Hotel> getAll() {
+		
+		return hotelRepository.findAll();
+	}
+
+	
+
+	public Hotel getRequestById(int id) throws InvalidIDException {
+		Optional<Hotel> optional = hotelRepository.findById(id);
+		if (optional.isEmpty())
+			throw new InvalidIDException("Verification Request ID does not exist!");
+		return optional.get();
+	}
+	
+	
+	 public Hotel updateAvailability(Long hotelId, HotelAvailability availability) {
+	        Hotel hotel = hotelRepository.findById(hotelId)
+	                .orElseThrow(() -> new RuntimeException("Hotel not found with ID: " + hotelId));
+	        hotel.setIsAvailable(availability);
+	        return hotelRepository.save(hotel);
+	    }
+	
+	
+	
+
+
+
+
 
 }
