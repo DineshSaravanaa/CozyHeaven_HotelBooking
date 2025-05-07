@@ -19,6 +19,9 @@ import com.hotelbooking.cozyheaven.service.BookingService;
 import com.hotelbooking.cozyheaven.service.HotelService;
 import com.hotelbooking.cozyheaven.service.PaymentService;
 import com.hotelbooking.cozyheaven.service.ReportService;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @RestController
@@ -40,26 +43,44 @@ public class ReportController
 	@Autowired
 	private ReviewRepository reviewRepository;
 
-	
+	Logger logger =  LoggerFactory.getLogger("ReportController"); 
+
 	// 1 - list of bookings
 	@GetMapping("/listofbookings")
 	public List<Booking> getAllBooking()
 	{
-		return bookingService.getAllBooking();
+		logger.info("Attempting to retrieve all bookings.");
+		List<Booking> bookings = bookingService.getAllBooking();
+		if (bookings == null || bookings.isEmpty()) {
+			logger.warn("No bookings found.");
+		} else {
+			logger.info("Successfully retrieved {} bookings.", bookings.size());
+		}
+		return bookings;
 	}
 	
 	//2 - Count of Bookings
 	@GetMapping("/countofbookings")
 	public long getCountOfBooking()
 	{
-		return bookingService.getCountOfBooking();
+		logger.info("Attempting to retrieve the total count of bookings.");
+		long count = bookingService.getCountOfBooking();
+		logger.info("Total count of bookings: {}.", count);
+		return count;
 	}
 	
 	//3 - Find by date 
 	@GetMapping("/getbooking/{bookdate}")
 	public List<Booking> getListOfBookingByDate(@PathVariable LocalDateTime bookdate)
 	{
-		return bookingService.getListOfBookingByDate(bookdate);
+		logger.info("Attempting to retrieve bookings for date: {}.", bookdate);
+		List<Booking> bookings = bookingService.getListOfBookingByDate(bookdate);
+		if (bookings == null || bookings.isEmpty()) {
+			logger.warn("No bookings found for date: {}.", bookdate);
+		} else {
+			logger.info("Successfully retrieved {} bookings for date: {}.", bookings.size(), bookdate);
+		}
+		return bookings;
 	}
 	
 	//4 - Find By date Count
@@ -115,7 +136,10 @@ public class ReportController
 	@GetMapping("/totalamount/{hotelid}")
 	public Double getTotalRevenueByHotelId(@PathVariable int hotelid)
 	{
-		return paymentService.getTotalRevenueByHotelId(hotelid);
+		logger.info("Attempting to calculate total revenue for hotel ID: {}.", hotelid);
+		Double totalRevenue = paymentService.getTotalRevenueByHotelId(hotelid);
+		logger.info("Total revenue for hotel ID {}: {}.", hotelid, totalRevenue);
+		return totalRevenue;
 	}
 	
 	//12 - List of Bookings By Custom Range of Date
@@ -134,7 +158,10 @@ public class ReportController
 	@GetMapping("/monthly-revenue")
 	public double[] getAllAmountsForEachMonth()
 	{
-		return reportService.calculateMonthlyRevenue();
+		logger.info("Attempting to calculate monthly revenue.");
+		double[] monthlyRevenue = reportService.calculateMonthlyRevenue();
+		logger.info("Monthly revenue data generated. (Array size: {})", monthlyRevenue != null ? monthlyRevenue.length : "null");
+		return monthlyRevenue;
 	}
 	
 	//14 - Find the total no of bookings on the basis of monthly wise and store it in an array then pass to UI
