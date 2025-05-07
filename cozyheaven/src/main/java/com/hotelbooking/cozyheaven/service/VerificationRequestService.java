@@ -126,8 +126,7 @@ public class VerificationRequestService {
 		return verificationRequestRepository.findAll();
 	}
 	
-	
-public Long getByPendingCount() {
+	public Long getByPendingCount() {
 		
 		List<VerificationRequest> verificationRequests = verificationRequestRepository.findAll();
 		long totalpendings =  verificationRequests.stream().filter(v->v.getStatus().toString() == "PENDING").count();
@@ -150,6 +149,23 @@ public Long getByPendingCount() {
 		return totalcancels;
 
 	}
+	
+	public List<VerificationRequest> getApprovedVerifications() {
+	    List<VerificationRequest> approvedList = verificationRequestRepository.findAll().stream()
+	        .filter(v -> "APPROVED".equalsIgnoreCase(v.getStatus().toString()))
+	        .toList();
+
+	    return approvedList;
+	}
+	
+	public List<VerificationRequest> getPendingVerifications() {
+		 List<VerificationRequest> pendingList = verificationRequestRepository.findAll().stream()
+			        .filter(v -> "PENDING".equalsIgnoreCase(v.getStatus().toString()))
+			        .toList();
+		
+	    return pendingList;
+	}
+
 
 	
 
