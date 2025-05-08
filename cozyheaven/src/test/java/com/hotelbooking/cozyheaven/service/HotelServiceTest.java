@@ -24,7 +24,6 @@ import com.hotelbooking.cozyheaven.enums.HotelAvailability;
 import com.hotelbooking.cozyheaven.enums.HotelStatus;
 import com.hotelbooking.cozyheaven.enums.HotelType;
 import com.hotelbooking.cozyheaven.enums.IsVerified;
-import com.hotelbooking.cozyheaven.exception.InvalidHotelNameException;
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.model.Hotel;
 import com.hotelbooking.cozyheaven.model.HotelOwner;
@@ -96,9 +95,19 @@ public class HotelServiceTest {
 
 	@Test
 	public void getHotelByID() {
+		// UseCase 1 : Valid ID
 		when(hotelRepository.findById(h1.getId())).thenReturn(Optional.of(h1));
 		try {
 			assertEquals(h1, hotelService.findByHotelID(1));
+		} catch (InvalidIDException e) {
+			assertEquals("Hotel  ID Does Not Exist!", e.getMessage());
+		}
+
+		// UseCase 2: Invalid ID
+
+		when(hotelRepository.findById(2)).thenReturn(Optional.empty());
+		try {
+			assertEquals(h1, hotelService.findByHotelID(2));
 		} catch (InvalidIDException e) {
 			assertEquals("Hotel  ID Does Not Exist!", e.getMessage());
 		}
@@ -112,44 +121,10 @@ public class HotelServiceTest {
 	}
 
 	@Test
-	public void getByHotelName() {
-		List<Hotel> hotels = Arrays.asList(h1);
-		String name = "Hotel Sunshine";
-		when(hotelRepository.findByName(name)).thenReturn(hotels);
-		try {
-			assertEquals(hotels, hotelService.getByHotelName(name));
-		} catch (InvalidHotelNameException e) {
-			assertEquals("Hotel Name Not Found!", e.getMessage());
-		}
-	}
-
-	@Test
-	public void getHotelByApproval() {
-		List<Hotel> hotels = Arrays.asList(h1,h33);
-		when(hotelRepository.findByStatus(HotelStatus.APPROVED)).thenReturn(hotels);
-		assertEquals(hotels, hotelService.getHotelByApproval());
-		
-	}
-	
-	@Test
 	public void getDeletionRequests() {
-		List<Hotel> hotels=Arrays.asList(h1,h3,h33);
+		List<Hotel> hotels = Arrays.asList(h1, h3, h33);
 		when(hotelRepository.findByDeletionRequested(DeletionRequest.Yes)).thenReturn(hotels);
 		assertEquals(hotels, hotelService.getDeletionRequests());
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

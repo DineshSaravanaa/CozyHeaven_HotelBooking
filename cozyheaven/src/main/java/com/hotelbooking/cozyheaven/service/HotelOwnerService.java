@@ -15,12 +15,14 @@ public class HotelOwnerService {
 	private HotelOwnerRepository hotelOwnerRepository;
 
 	// Saving HotelOwner In DB
+
 	public HotelOwner addHotelOwner(HotelOwner hotelOwner) {
 
 		return hotelOwnerRepository.save(hotelOwner);
 	}
 
 	// To Get Owner By ID
+
 	public HotelOwner getOwnerByID(int id) throws InvalidIDException {
 
 		Optional<HotelOwner> optional = hotelOwnerRepository.findById(id);
@@ -29,8 +31,10 @@ public class HotelOwnerService {
 		return optional.get();
 	}
 
+	// To Get Owner By Username
+
 	public HotelOwner getOwnerByUsername(String name) {
-		
+
 		return hotelOwnerRepository.findByUserUsername(name);
 	}
 

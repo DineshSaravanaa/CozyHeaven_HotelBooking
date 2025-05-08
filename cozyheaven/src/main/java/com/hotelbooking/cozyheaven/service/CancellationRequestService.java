@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.hotelbooking.cozyheaven.enums.Status;
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.model.CancellationRequest;
-import com.hotelbooking.cozyheaven.model.HotelOwner;
 import com.hotelbooking.cozyheaven.repository.CancellationRequestRepository;
 
 @Service
@@ -18,41 +18,40 @@ public class CancellationRequestService {
 	private CancellationRequestRepository cancellationRequestRepository;
 
 	// To Save Requests in DB
+
 	public CancellationRequest cancellBooking(CancellationRequest cancellationRequest) {
 
 		return cancellationRequestRepository.save(cancellationRequest);
 	}
 
-	// To Get All Requests
-	public List<CancellationRequest> cancellBookingAll() {
+	// To Get Request By ID
 
-		return cancellationRequestRepository.findAll();
-	}
-
-	//To Get Request By ID
 	public CancellationRequest findByID(int id) throws InvalidIDException {
 		Optional<CancellationRequest> optional = cancellationRequestRepository.findById(id);
 		if (optional.isEmpty())
 			throw new InvalidIDException("Cancellation ID Does Not Exist!");
 		return optional.get();
 	}
-	
-    // To Get Request By Hotel
+
+	// To Get Request By Hotel Id
+
 	public List<CancellationRequest> getByHotel(int hotelid) {
 
 		return cancellationRequestRepository.findByBookingRoomHotelId(hotelid);
 	}
 
-	// To Get Request By Status
-	public List<CancellationRequest> getByApproval() {
+	// To Get Requests By Owner Id (Pagination)
 
-		return cancellationRequestRepository.findByStatus(Status.APPROVED);
+	public Page<CancellationRequest> getByHotelOwner(int id, Pageable pageable) {
+
+		return cancellationRequestRepository.findByBookingRoomHotelHotelOwnerId(id, pageable);
 	}
 
-	// To Get Request By Status
-	public List<CancellationRequest> getByRejections() {
+	// To Get Requests By Owner Id
 
-		return cancellationRequestRepository.findByStatus(Status.REJECTED);
+	public List<CancellationRequest> getAllByOwner(int id) {
+
+		return cancellationRequestRepository.findByBookingRoomHotelHotelOwnerId(id);
 	}
 
 }

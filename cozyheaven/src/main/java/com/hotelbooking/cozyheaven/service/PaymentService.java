@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.model.Payment;
-import com.hotelbooking.cozyheaven.model.Room;
 import com.hotelbooking.cozyheaven.repository.PaymentRepository;
 
 @Service

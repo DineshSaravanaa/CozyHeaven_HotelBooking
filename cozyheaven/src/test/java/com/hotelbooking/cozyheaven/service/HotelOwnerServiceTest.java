@@ -50,22 +50,30 @@ public class HotelOwnerServiceTest {
 				LocalDateTime.now().minusDays(20),
 				new User(2, "owner2", "owner2user@example.com", "pass2", "HotelOwner"));
 	}
-	
+
 	@Test
 	public void addHotelOwner() {
 		when(hotelOwnerRepository.save(owner2)).thenReturn(owner22);
 		assertEquals(owner22, hotelOwnerService.addHotelOwner(owner2));
 	}
-	
+
 	@Test
 	public void getOwnerByID() {
 		when(hotelOwnerRepository.findById(owner1.getId())).thenReturn(Optional.of(owner1));
+
+		// UseCase 1 : Valid Id
 		try {
 			assertEquals(owner1, hotelOwnerService.getOwnerByID(1));
 		} catch (InvalidIDException e) {
 			assertEquals("Hotel Owner ID Does Not Exist!", e.getMessage());
 		}
+
+		// UseCase 2 : InValid Id
+		when(hotelOwnerRepository.findById(2)).thenReturn(Optional.empty());
+		try {
+			assertEquals(owner1, hotelOwnerService.getOwnerByID(2));
+		} catch (InvalidIDException e) {
+			assertEquals("Hotel Owner ID Does Not Exist!", e.getMessage());
+		}
 	}
 }
-
-

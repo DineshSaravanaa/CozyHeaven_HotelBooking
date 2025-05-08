@@ -33,13 +33,18 @@ public class CancellationRequest {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Status status;
-
-	@Column(nullable = false)
+	
 	private LocalDateTime processedAt;
 
 	@ManyToOne
 	private Booking booking;
 	
+	
+	
+
+	public CancellationRequest() {
+		super();
+	}
 
 	public CancellationRequest(int id, LocalDateTime requestDate, String reason, String details, Status status,
 			LocalDateTime processedAt, Booking booking) {
