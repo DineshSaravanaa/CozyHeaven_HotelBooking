@@ -1,0 +1,2763 @@
+/* === Base Styles & Variables (Updated Palette) === */
+:root {
+    /* New Blue Theme Palette */
+    --primary: #003366;
+    /* Deep Blue */
+    --primary-light: #0066cc;
+    /* Medium Blue */
+    --accent: #00AEEF;
+    /* Light Blue Accent */
+    --secondary: #ff7e5f;
+    /* Orange/Coral (from new CTA) */
+    --secondary-light: #feb47b;
+    /* Lighter Orange/Coral */
+
+    --dark: #333333;
+    /* Dark text (slightly lighter than pure black) */
+    --light: #f8f9fa;
+    /* Very Light Gray/Off-white */
+    --light-alt: #ffffff;
+    /* White */
+    --extra-light-bg: #F0F8FF;
+    /* AliceBlue - Main Background */
+
+    --success: #38a169;
+    /* Kept for status */
+    --warning: #dd6b20;
+    /* Kept for status */
+    --danger: #e53e3e;
+    /* Kept for status */
+    --gray: #6c757d;
+    /* Standard Gray */
+    --light-gray: #dee2e6;
+    /* Lighter Gray for borders */
+
+    --text-light: #ffffff;
+    /* Text on dark backgrounds */
+
+    /* Font */
+    --font-family: 'Poppins', Arial, sans-serif;
+    /* New Font */
+
+    /* Shared */
+    --border-radius: 10px;
+    /* Slightly more rounded */
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    --box-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: large;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--extra-light-bg);
+    /* Use Light Blue Background */
+    color: var(--primary);
+    /* Dark Blue Text */
+    margin: 0;
+    padding: 0;
+    padding-top: 80px;
+    /* Add padding to prevent content overlap by fixed nav */
+    overflow-x: hidden;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary);
+    /* Dark Blue headings */
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2.2rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+h3 {
+    font-size: 1.4rem;
+}
+
+h4 {
+    font-size: 1.1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--gray);
+    /* Standard gray for paragraphs */
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary-light);
+    /* Medium blue links */
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--accent);
+    /* Light blue hover */
+    text-decoration: none;
+    /* Often looks better without underline */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* === Layout & Containers === */
+.container {
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* === NEW Navigation Bar (From styles2.css) === */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: rgba(0, 72, 128, 0.85); Semi-transparent blue */
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    /* Use gradient from :root */
+    backdrop-filter: blur(10px);
+    padding: 15px 30px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: var(--box-shadow);
+    height: 80px;
+    /* Explicit height */
+}
+
+/* Change navbar color on scroll (optional) */
+nav.scrolled {
+    background: rgba(0, 40, 90, 0.95);
+    /* Darker semi-transparent */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    /* transform: translateY(0); No need to transform if always visible */
+}
+
+/* Logo aligned to the left */
+.logo {
+    font-size: 1.8em;
+    color: white;
+    font-weight: bold;
+    transition: transform 0.3s, text-shadow 0.8s ease-out;
+    margin-right: auto;
+    /* Pushes links and button to the right */
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    /* Indicate it's interactive */
+}
+
+/* Firecracker effect */
+.logo:hover {
+    /* transform: scale(1.1) combined with shake doesn't work well, prioritize animation */
+    animation: blueBurstEffect 0.8s ease-out forwards, shake 0.5s infinite alternate;
+}
+
+/* Navigation Links Container (for centering) */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    /* Center links horizontally */
+    flex-grow: 1;
+    /* Allow it to take space */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    /* Vertically align items */
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    padding: 10px 15px;
+    transition: color 0.3s ease-in-out, transform 0.2s, text-shadow 0.3s;
+    position: relative;
+}
+
+/* Animated Underline Effect */
+nav ul li a::after {
+    content: "";
+    width: 0;
+    /* Start with width 0 */
+    height: 3px;
+    background: var(--accent);
+    /* Light blue */
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    /* Start from center */
+    transform: translateX(-50%);
+    /* Adjust to center */
+    transition: width 0.3s ease-in-out;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+    /* Expand width */
+}
+
+nav ul li a:hover {
+    color: var(--accent);
+    /* transform: scale(1.1); Apply scaling on hover */
+    text-shadow: 0px 0px 10px rgba(0, 170, 255, 0.8);
+}
+
+/* Login Button Container (for positioning) */
+.login-container {
+    margin-left: auto;
+    /* Push to the far right */
+    padding-right: 30px;
+    /* Add some space from edge */
+}
+
+/* Login Button Style */
+nav .login-btn {
+    background: linear-gradient(to right, var(--accent), #00c6ff);
+    /* Light blue gradient */
+    color: white;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 174, 239, 0.5);
+    /* Shadow matching accent */
+    text-decoration: none;
+    /* Ensure link buttons look like buttons */
+    display: inline-block;
+    /* Needed for padding/margins */
+}
+
+nav .login-btn:hover {
+    background: linear-gradient(to right, #00c6ff, var(--accent));
+    /* Reverse gradient */
+    box-shadow: 0px 6px 15px rgba(0, 174, 239, 0.8);
+    transform: scale(1.05);
+    /* Slight scale */
+}
+
+/* Keyframes from new CSS */
+@keyframes blueBurstEffect {
+    0% {
+        text-shadow: 0 0 5px rgba(0, 191, 255, 0.8), 0 0 10px rgba(0, 102, 255, 0.8);
+    }
+
+    50% {
+        text-shadow: 5px 5px 20px rgba(0, 191, 255, 1), -5px -5px 20px rgba(0, 102, 255, 1), 10px 10px 30px rgba(0, 0, 255, 1), -10px -10px 30px rgba(0, 191, 255, 1);
+    }
+
+    100% {
+        text-shadow: 0 0 5px rgba(0, 191, 255, 0.8), 0 0 10px rgba(0, 102, 255, 0.8);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(-1deg) scale(1.1);
+    }
+
+    /* Combine scale with rotate */
+    100% {
+        transform: rotate(1deg) scale(1.1);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes waveEffect {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes glowingBorder {
+    0% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleX(0.8);
+        opacity: 0.7;
+    }
+
+    /* Adjusted scale */
+}
+
+@keyframes floatingStars {
+
+    /* Requires assets/stars.png */
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes bgMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-15px, -15px);
+    }
+
+    /* Slightly less movement */
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes bounceText {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    }
+
+    50% {
+        box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.9);
+    }
+
+    100% {
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    }
+}
+
+
+/* === Header (Landing Page Specific - Updated) === */
+header.landing-header {
+    margin-top: 0;
+    /* Removed margin-top as body has padding */
+    background: linear-gradient(to right, var(--primary), var(--primary-light));
+    /* Use Variables */
+    padding: 100px 20px 60px;
+    /* Adjusted padding */
+    color: white;
+    text-align: center;
+    /* border-radius: var(--border-radius); Removed radius for full width feel */
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    /* Keep for effects */
+    animation: fadeInDown 1.2s ease-out;
+    /* Slightly faster */
+}
+
+/* Wave Animation for Header Text */
+header.landing-header h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    background: linear-gradient(to right, #ffffff, var(--accent));
+    /* White to Light Blue */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    animation: waveEffect 3s infinite alternate ease-in-out;
+    margin-bottom: 0.5rem;
+    /* Add some space below */
+}
+
+/* Smooth Subtitle Animation */
+header.landing-header p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    opacity: 0;
+    color: var(--light);
+    /* Lighter text */
+    animation: fadeIn 1.5s ease-in-out 0.5s forwards;
+}
+
+/* Add a glowing border effect */
+header.landing-header::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    /* Slightly thinner */
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, #ffffff, var(--accent));
+    animation: glowingBorder 3s infinite alternate;
+}
+
+/* === Sections (Common) === */
+section {
+    padding: 4rem 1.5rem;
+}
+
+/* Alternate background for sections - use light blue theme */
+section:nth-child(even) {
+    background-color: #E1F5FE;
+    /* Very light blue */
+}
+
+section:nth-child(odd) {
+    background-color: var(--light-alt);
+    /* White */
+}
+
+
+/* === Footer (Common - Updated) === */
+footer {
+    background: var(--primary);
+    /* Dark Blue */
+    color: var(--light);
+    /* Light text */
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    /* Ensure space before footer */
+}
+
+/* === Buttons (Common - Updated) === */
+.btn {
+    padding: 12px 25px;
+    /* Consistent padding */
+    border: none;
+    border-radius: 50px;
+    /* Pill shape */
+    font-weight: 600;
+    /* Bold */
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    /* Space for icon */
+    font-size: 1rem;
+    /* Standard size */
+    text-decoration: none;
+    line-height: 1.4;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    /* Lift and slightly enlarge */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(to right, var(--primary-light), var(--accent));
+    /* Medium to Light Blue */
+    color: var(--text-light);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, var(--accent), var(--primary-light));
+    /* Reverse gradient */
+    color: var(--text-light);
+}
+
+.btn-secondary {
+    /* Use Coral */
+    background: linear-gradient(to right, var(--secondary), var(--secondary-light));
+    color: var(--text-light);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(to right, var(--secondary-light), var(--secondary));
+    color: var(--text-light);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-light);
+    /* Medium Blue border */
+    color: var(--primary-light);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-light);
+    color: var(--text-light);
+    border-color: var(--primary-light);
+}
+
+.btn-accent {
+    /* Use white bg, accent text */
+    background-color: var(--light-alt);
+    color: var(--accent);
+    border: 2px solid var(--accent);
+}
+
+.btn-accent:hover {
+    background-color: var(--accent);
+    color: var(--text-light);
+}
+
+
+.btn-danger {
+    background-color: var(--danger);
+    color: white;
+    border: 2px solid var(--danger);
+}
+
+.btn-danger:hover {
+    background-color: #c53030;
+    border-color: #c53030;
+    color: var(--text-light);
+}
+
+.btn-success {
+    background-color: var(--success);
+    color: white;
+    border: 2px solid var(--success);
+}
+
+.btn-success:hover {
+    background-color: #2f855a;
+    /* Darker green */
+    border-color: #2f855a;
+    color: var(--text-light);
+}
+
+/* Small button variant for tables/filters */
+.btn-sm {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    gap: 0.4rem;
+}
+
+
+/* === Forms (Common for Login, Signup, Dashboard - Updated) === */
+.form-container {
+    background-color: var(--light-alt);
+    /* White background */
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    /* Use standard shadow */
+    max-width: 700px;
+    margin: 2rem auto;
+    border: 1px solid var(--light-gray);
+    /* Subtle border */
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-header h2 {
+    color: var(--primary);
+    /* Dark Blue title */
+}
+
+.form-header p {
+    color: var(--gray);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+    /* Align labels left */
+}
+
+label {
+    display: block;
+    margin-bottom: 0.6rem;
+    /* More space */
+    font-weight: 600;
+    color: var(--primary);
+    /* Dark Blue label */
+    font-size: 0.95rem;
+}
+
+.form-required::after {
+    content: '*';
+    color: var(--danger);
+    margin-left: 0.3rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.9rem 1.1rem;
+    /* Slightly larger padding */
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    transition: var(--transition);
+    background-color: var(--extra-light-bg);
+    /* Light Blue background */
+    color: var(--dark);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--accent);
+    /* Light Blue focus border */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.15);
+    /* Light Blue glow */
+    background-color: var(--light-alt);
+    /* White background on focus */
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-hint {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-top: 0.4rem;
+    /* More space */
+    display: block;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--light-gray);
+}
+
+.form-actions-center {
+    justify-content: center;
+    border-top: none;
+}
+
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Checkbox Styling (Dashboard Room Amenities - Updated) */
+.amenity-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: var(--extra-light-bg);
+    /* Match input bg */
+    padding: 0.6rem 1rem;
+    /* Adjusted padding */
+    border-radius: var(--border-radius);
+    border: 1px solid var(--light-gray);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    /* Ensure text is left aligned */
+}
+
+.amenity-checkbox:hover {
+    border-color: var(--accent);
+    background-color: #E1F5FE;
+    /* Very light blue */
+}
+
+.amenity-checkbox input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+    accent-color: var(--primary-light);
+    /* Style checkbox color */
+}
+
+.amenity-checkbox span {
+    font-size: 0.9rem;
+    color: var(--primary);
+    /* Dark blue text */
+}
+
+
+/* === Landing Page Specific Sections (Updated) === */
+
+/* About Section */
+#about {
+    position: relative;
+    /* background: url("assets/header.jpg") no-repeat center center/cover; Assumed path */
+    background-color: #B3E5FC;
+    /* Fallback if image fails or not used */
+    color: var(--primary);
+    /* Text color suitable for light blue bg */
+    text-align: center;
+    padding: 100px 20px;
+    overflow: hidden;
+    min-height: auto;
+    /* Remove min-height */
+}
+
+/* Glassmorphism Effect for Content */
+.about-content {
+    background: rgba(255, 255, 255, 0.6);
+    /* More opaque white */
+    border-radius: 15px;
+    padding: 40px;
+    /* More padding */
+    max-width: 800px;
+    /* Limit width */
+    margin: 0 auto;
+    /* Center */
+    text-align: center;
+    backdrop-filter: blur(8px);
+    /* Slightly less blur */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+#about:hover .about-content {
+    transform: scale(1.03);
+    /* Smaller scale */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.about-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary);
+    /* Ensure heading color */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    /* Slightly smaller */
+    line-height: 1.7;
+    /* More line spacing */
+    font-weight: 400;
+    /* Normal weight */
+    color: var(--dark);
+    /* Darker text for readability */
+}
+
+#about img {
+    display: none;
+}
+
+/* Keep hidden if using background */
+
+
+/* Reviews Section (Landing Page - Updated) */
+.reviews {
+    background: #E1F5FE;
+    /* Very light blue */
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.reviews h2 {
+    color: var(--primary);
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 2.5rem;
+}
+
+.review-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.review-box {
+    /* Card style for reviews */
+    background-color: var(--light-alt);
+    /* White card */
+    padding: 2rem;
+    /* More padding */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light);
+    text-align: center;
+    transition: var(--transition);
+    opacity: 1;
+    /* Make visible by default */
+    transform: none;
+    /* No transform by default */
+    border-top: 5px solid var(--accent);
+    /* Accent border top */
+}
+
+.review-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow);
+}
+
+.review-box img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    /* Accent border */
+    transition: transform 0.3s ease-in-out;
+}
+
+.review-box img:hover {
+    transform: rotate(10deg) scale(1.1);
+}
+
+.review-box p {
+    font-style: italic;
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+.review-box span {
+    font-weight: 600;
+    color: var(--dark);
+}
+
+
+/* CTA Section (Landing Page - Updated) */
+#cta {
+    text-align: center;
+    padding: 70px 20px;
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+    /* Coral gradient */
+    color: white;
+    margin-top: 0;
+    /* Removed margin */
+    border-radius: 0;
+    /* Removed radius */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Animation */
+#cta::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    /* Center the radial */
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 10%, transparent 60%);
+    animation: bgMove 12s infinite linear alternate;
+    /* Slower, alternating */
+}
+
+.cta h2 {
+    font-size: 2.2em;
+    margin-bottom: 15px;
+    color: var(--text-light);
+    /* Ensure white text */
+    animation: fadeIn 1s ease-out forwards, bounceText 1.5s ease-in-out 1s infinite alternate;
+    position: relative;
+    z-index: 1;
+    /* Above background effect */
+}
+
+.cta p {
+    font-size: 1.2em;
+    margin-bottom: 25px;
+    /* More space */
+    color: var(--light);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+    /* Above background effect */
+    animation: fadeIn 1.2s ease-out 0.3s forwards;
+}
+
+/* Glowing Create Account Button */
+#cta .signup-btn {
+    /* Target button inside CTA */
+    display: inline-block;
+    background: white;
+    color: var(--secondary);
+    /* Coral text */
+    padding: 14px 30px;
+    font-size: 1.2em;
+    /* Adjusted size */
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 50px;
+    /* Pill shape */
+    transition: background 0.4s, color 0.4s, transform 0.3s, box-shadow 0.4s;
+    animation: pulse 2s infinite;
+    /* Slower pulse */
+    border: 2px solid white;
+    position: relative;
+    z-index: 1;
+    /* Above background effect */
+}
+
+#cta .signup-btn:hover {
+    background: var(--secondary);
+    /* Solid Coral */
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7);
+    /* White glow */
+}
+
+
+/* === Login/Signup Specific (Updated) === */
+.login-container,
+.signup-container {
+    padding: 4rem 1rem;
+}
+
+.login-container .form-container,
+.signup-container .form-container {
+    max-width: 550px;
+    /* Slightly wider */
+}
+
+.login-options {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.login-options a {
+    color: var(--primary-light);
+    /* Medium blue link */
+    margin: 0 0.5rem;
+}
+
+.login-options a:hover {
+    color: var(--accent);
+    /* Light blue hover */
+    text-decoration: underline;
+}
+
+.signup-container h3 {
+    /* Section headers in signup form */
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+    border-bottom: 2px solid var(--accent);
+    /* Light blue underline */
+    padding-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+
+/* === Hotel Owner Dashboard Specific Styles (Adapting, Not Replacing Fully) === */
+
+/* Dashboard Header adjustments */
+/* The main <nav> is replaced. Styles inside .user-menu need checking */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Notification Bell & Badge */
+.notification-bell {
+    color: var(--text-light);
+    /* White */
+    font-size: 1.3rem;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.notification-bell:hover {
+    color: var(--accent);
+}
+
+/* Light blue hover */
+
+.notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background-color: var(--danger);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 2px solid var(--primary);
+    /* Dark blue border */
+}
+
+/* User Avatar */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    /* Light blue background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    /* Dark blue text */
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    border: 2px solid var(--light-alt);
+    /* White border */
+    transition: var(--transition);
+}
+
+.user-avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    /* Brighter glow */
+}
+
+
+/* Dropdowns (Notifications & Account - Adapting Colors) */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--light-alt);
+    /* White bg */
+    min-width: 250px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius);
+    z-index: 1100;
+    margin-top: 15px;
+    /* More space */
+    border: 1px solid var(--light-gray);
+    overflow: hidden;
+}
+
+.notification-dropdown {
+    width: 360px;
+}
+
+.account-dropdown {
+    width: 240px;
+}
+
+.dropdown-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--extra-light-bg);
+    /* Lightest blue bg */
+}
+
+.dropdown-header h3 {
+    font-size: 1rem;
+    color: var(--primary);
+    margin: 0;
+    font-weight: 600;
+}
+
+.dropdown-header a {
+    color: var(--primary-light);
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.dropdown-header a:hover {
+    text-decoration: underline;
+}
+
+.dropdown-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: var(--extra-light-bg);
+}
+
+/* Lightest blue hover */
+
+.dropdown-item-icon {
+    color: var(--primary-light);
+    font-size: 1rem;
+    margin-top: 3px;
+    width: 20px;
+    text-align: center;
+}
+
+.dropdown-item-content {
+    flex: 1;
+}
+
+.dropdown-item-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+}
+
+.dropdown-item-message {
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.4;
+}
+
+.dropdown-item-time {
+    font-size: 0.75rem;
+    color: var(--gray);
+    margin-top: 4px;
+}
+
+.dropdown-footer {
+    padding: 10px 16px;
+    text-align: center;
+    border-top: 1px solid var(--light-gray);
+    background-color: var(--extra-light-bg);
+}
+
+.dropdown-footer a {
+    color: var(--primary-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.dropdown-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Account Dropdown Specific */
+.account-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--extra-light-bg);
+}
+
+.account-avatar {
+    /* Uses same class but larger */
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    /* Light blue */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    /* Dark blue text */
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.account-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.account-info p {
+    margin: 2px 0 0;
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.account-menu-item {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, color 0.2s;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.account-menu-item:last-child {
+    border-bottom: none;
+}
+
+.account-menu-item i {
+    width: 20px;
+    text-align: center;
+    color: var(--gray);
+    transition: color 0.2s;
+    font-size: 0.95rem;
+}
+
+.account-menu-item:hover {
+    background-color: var(--primary-light);
+    /* Medium blue hover */
+    color: var(--text-light);
+}
+
+.account-menu-item:hover i {
+    color: var(--accent);
+}
+
+/* Light blue icon */
+
+/* Show/Unread Dropdown States */
+.dropdown-content.show {
+    display: block;
+    animation: fadeInDown 0.3s ease-out;
+}
+
+.dropdown-item.unread {
+    background-color: #E1F5FE;
+}
+
+/* Light blue tint */
+.dropdown-item.unread .dropdown-item-title {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+
+/* Dashboard Secondary Navigation (Tabs - Adapting) */
+.dashboard-nav {
+    background-color: var(--light-alt);
+    /* White background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--light-gray);
+    overflow-y: hidden;
+}
+
+.dashboard-nav ul {
+    display: flex;
+    list-style: none;
+    width: 75%;
+    /* replaces max-width */
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    /* you can reduce or increase */
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    justify-content: space-evenly;
+    /* spreads out tabs */
+}
+
+.dashboard-nav ul li {
+    position: relative;
+    white-space: nowrap;
+}
+
+.dashboard-nav ul li a {
+    color: var(--gray);
+    /* Gray default */
+    text-decoration: none;
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    display: block;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+}
+
+.dashboard-nav ul li a:hover {
+    color: var(--primary-light);
+    /* Medium blue */
+    background-color: var(--extra-light-bg);
+    /* Lightest blue */
+}
+
+.dashboard-nav ul li a.active {
+    color: var(--primary);
+    /* Dark blue */
+    border-bottom-color: var(--primary);
+    font-weight: 700;
+}
+
+.dashboard-nav ul li a .fa-fw {
+    margin-right: 0.5em;
+}
+
+/* Ensure icon spacing */
+
+
+/* Dashboard Page Header (Adapting) */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.page-header h1 {
+    color: var(--primary);
+    /* Dark blue */
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: var(--primary-light);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+    color: var(--accent);
+}
+
+.breadcrumb-separator {
+    margin: 0 0.5rem;
+}
+
+/* Dashboard Tab Content */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Dashboard Stats Grid (Adapting) */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background-color: var(--light-alt);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow-light);
+    transition: var(--transition);
+    border-left: 5px solid var(--primary-light);
+    /* Medium blue accent */
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+}
+
+/* Optional: Add subtle background pattern/icon */
+.stat-card::after {
+    /* content: '\f073'; Example: calendar icon */
+    /* font-family: 'Font Awesome 6 Free'; */
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 2.5rem;
+    color: var(--primary);
+    opacity: 0.08;
+    font-weight: 900;
+}
+
+.stat-card h3 {
+    color: var(--gray);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card p {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    /* Dark blue numbers */
+    margin-bottom: 0;
+}
+
+/* Specific stat card colors */
+.stat-card.total {
+    border-left-color: var(--primary);
+}
+
+.stat-card.total p {
+    color: var(--primary);
+}
+
+.stat-card.approved {
+    border-left-color: var(--success);
+}
+
+.stat-card.approved p {
+    color: var(--success);
+}
+
+.stat-card.pending {
+    border-left-color: var(--warning);
+}
+
+.stat-card.pending p {
+    color: var(--warning);
+}
+
+.stat-card.requests {
+    border-left-color: var(--danger);
+}
+
+.stat-card.requests p {
+    color: var(--danger);
+}
+
+.stat-card.revenue {
+    border-left-color: var(--accent);
+}
+
+/* Light blue */
+.stat-card.revenue p {
+    color: var(--primary);
+}
+
+.stat-card.reviews {
+    border-left-color: var(--secondary);
+}
+
+/* Coral */
+.stat-card.reviews p {
+    color: var(--secondary);
+}
+
+
+/* Dashboard Recent Activity (Adapting) */
+.recent-activity {
+    background-color: var(--light-alt);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow-light);
+}
+
+.recent-activity h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+    border-bottom: 1px solid var(--light-gray);
+    padding-bottom: 0.8rem;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--light-gray);
+    gap: 1rem;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.activity-item:first-child {
+    padding-top: 0;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--text-light);
+    /* White icon */
+}
+
+/* Update icon backgrounds to match theme */
+.activity-icon {
+    background-color: var(--primary-light);
+}
+
+/* Default: Medium blue */
+.activity-icon.approved {
+    background-color: var(--success);
+}
+
+.activity-icon.deleted {
+    background-color: var(--danger);
+}
+
+.activity-icon.booking {
+    background-color: var(--secondary);
+}
+
+/* Coral */
+.activity-icon.review {
+    background-color: var(--accent);
+}
+
+/* Light blue */
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-title {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: var(--dark);
+    font-size: 0.95rem;
+}
+
+.activity-description {
+    color: var(--gray);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.activity-time {
+    color: var(--gray);
+    font-size: 0.8rem;
+    text-align: right;
+    white-space: nowrap;
+    margin-left: 1rem;
+}
+
+/* Dashboard Hotel Cards (Adapting) */
+.hotels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.hotel-card {
+    background-color: var(--light-alt);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow-light);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.hotel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow);
+}
+
+.hotel-image {
+    height: 180px;
+    background-color: var(--light-gray);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.hotel-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-pending {
+    background-color: var(--warning);
+}
+
+.status-approved {
+    color: var(--success);
+}
+
+.status-rejected {
+    color: var(--danger);
+}
+
+.hotel-details {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.hotel-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+}
+
+/* Dark blue name */
+.hotel-location {
+    display: flex;
+    align-items: center;
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.hotel-location i {
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+    width: 15px;
+    text-align: center;
+    color: var(--primary-light);
+}
+
+/* Icon color */
+.hotel-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.hotel-type {
+    /* Style the type badge */
+    background-color: var(--extra-light-bg);
+    /* Lightest blue bg */
+    color: var(--primary);
+    /* Dark blue text */
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+    border: 1px solid var(--primary-light);
+    /* Medium blue border */
+}
+
+.hotel-rooms {
+    color: var(--gray);
+    font-weight: 500;
+}
+
+.hotel-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--light-gray);
+}
+
+.hotel-actions .btn {
+    flex: 1;
+    padding: 0.7rem;
+    font-size: 0.85rem;
+    justify-content: center;
+}
+
+/* Slightly larger padding */
+.hotel-actions .btn i {
+    font-size: 0.9em;
+}
+
+/* Dashboard Room Type Management (Adapting) */
+.room-types-container {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    background-color: var(--extra-light-bg);
+    /* Lightest blue */
+}
+
+.room-type {
+    background-color: var(--light-alt);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--light-gray);
+}
+
+.room-type:last-child {
+    margin-bottom: 0;
+}
+
+.room-type-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.room-type-title {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.remove-room-type {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0.2rem;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.remove-room-type:hover {
+    color: #a52a2a;
+    transform: scale(1.1);
+}
+
+.remove-room-type:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.add-room-type-btn {
+    /* Style add button */
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    background-color: rgba(0, 174, 239, 0.1);
+    /* Light accent bg */
+    border: 2px dashed var(--accent);
+    /* Accent dashed border */
+    border-radius: var(--border-radius);
+    color: var(--accent);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.add-room-type-btn:hover {
+    background-color: rgba(0, 174, 239, 0.2);
+}
+
+.add-room-type-btn i {
+    font-size: 1.1em;
+}
+
+
+/* Modals (Adapting Colors) */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 51, 102, 0.7);
+    /* Dark blue overlay, more opaque */
+    z-index: 1100;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--light-alt);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: modalFadeIn 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-top: 5px solid var(--primary-light);
+    /* Medium blue top border */
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--extra-light-bg);
+    /* Lightest blue */
+}
+
+.modal-header h2 {
+    font-size: 1.4rem;
+    color: var(--primary);
+    margin: 0;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--gray);
+    transition: color 0.2s ease, transform 0.2s ease;
+    padding: 0.2rem;
+}
+
+.close-modal:hover {
+    color: var(--danger);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 1.5rem 2rem;
+    flex-grow: 1;
+}
+
+.modal-body p {
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+}
+
+.modal-body strong {
+    color: var(--primary-light);
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--light-gray);
+    background-color: var(--extra-light-bg);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Delete Modal Specific */
+.delete-reason-group {
+    margin-top: 1.5rem;
+}
+
+/* Success Modal Specific */
+#success-modal .modal-header h2 {
+    color: var(--success);
+}
+
+#success-modal .modal-content {
+    border-top-color: var(--success);
+}
+
+#success-modal .modal-body p {
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+#success-modal .modal-footer {
+    justify-content: center;
+}
+
+
+/* === View Hotel Details Modal Specific Styles === */
+#view-details-modal .modal-content {
+    max-width: 800px;
+    /* Wider modal */
+}
+
+#view-details-modal .modal-body {
+    padding: 1.5rem;
+    /* Use slightly less padding if needed */
+}
+
+.hotel-detail-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.hotel-detail-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.hotel-detail-section h4 {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.detail-item {
+    display: flex;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+}
+
+.detail-item strong {
+    color: var(--primary);
+    width: 150px;
+    /* Fixed width for labels */
+    flex-shrink: 0;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.detail-item span {
+    color: var(--dark);
+}
+
+.detail-item .amenities-list span {
+    display: inline-block;
+    background-color: var(--extra-light-bg);
+    color: var(--primary);
+    padding: 0.2rem 0.6rem;
+    border-radius: 15px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    border: 1px solid var(--primary-light);
+}
+
+/* Room Details */
+.room-details-container {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.room-detail-card {
+    background-color: var(--extra-light-bg);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+}
+
+.room-detail-card h5 {
+    color: var(--primary-light);
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px dashed var(--light-gray);
+    padding-bottom: 0.5rem;
+}
+
+.room-detail-card .detail-item strong {
+    width: 80px;
+    /* Shorter labels in room cards */
+}
+
+.room-detail-card .detail-item .amenities-list span {
+    font-size: 0.8rem;
+    padding: 0.15rem 0.5rem;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Availability Toggle */
+.availability-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--extra-light-bg);
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+    border: 1px solid var(--light-gray);
+}
+
+.availability-section strong {
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.availability-toggle.available {
+    background: linear-gradient(to right, var(--success), #5cb85c);
+    /* Green gradient */
+}
+
+.availability-toggle.unavailable {
+    background: linear-gradient(to right, var(--danger), #d9534f);
+    /* Red gradient */
+}
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem 0;
+    background: white;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+.page-item .page-link {
+    color: #333;
+    border: 1px solid #dee2e6;
+}
+
+/* Confetti effect - Kept as is */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary);
+    opacity: 0;
+    z-index: 9999;
+    animation: confettiFall 5s linear forwards;
+    border-radius: 2px;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* === Dashboard - New Tabs Specific Styles (Adapting) === */
+
+/* Common Table Styles */
+.table-container {
+    overflow-x: auto;
+    background-color: var(--light-alt);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light);
+    margin-bottom: 2rem;
+    border: 1px solid var(--light-gray);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.data-table thead th {
+    background-color: var(--extra-light-bg);
+    /* Lightest blue */
+    color: var(--primary);
+    /* Dark blue text */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.data-table tbody tr:hover {
+    background-color: #E1F5FE;
+}
+
+/* Light blue row hover */
+.data-table td {
+    color: var(--gray);
+}
+
+.data-table td strong {
+    color: var(--dark);
+    font-weight: 600;
+}
+
+/* Status Badges within Tables */
+.status-badge {
+    padding: 0.3rem 0.7rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.status-paid,
+.status-approved-refund {
+    background-color: var(--success);
+}
+
+.status-pending,
+.status-pending-refund {
+    background-color: var(--warning);
+}
+
+.status-failed,
+.status-rejected-refund {
+    background-color: var(--danger);
+}
+
+/* Action Buttons within Tables */
+.table-actions .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}
+
+.table-actions .btn:last-child {
+    margin-right: 0;
+}
+
+/* Filter Sections (Adapting) */
+.filter-section {
+    background-color: var(--light-alt);
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light);
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-section label {
+    margin-bottom: 0;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.filter-section select,
+.filter-section input[type="date"],
+.filter-section input[type="text"] {
+    padding: 0.6rem 0.9rem;
+    /* Consistent padding */
+    min-width: 150px;
+    border-radius: var(--border-radius);
+    /* Use global radius */
+}
+
+.filter-section .btn {
+    /* Style filter button */
+    padding: 0.6rem 1rem;
+    /* Match input height */
+}
+
+/* Reviews Tab (Dashboard Version - Adapting) */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.review-card {
+    /* Dashboard review card */
+    background-color: var(--light-alt);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light);
+    border-left: 4px solid var(--secondary);
+    /* Coral accent */
+    transition: var(--transition);
+}
+
+.review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+}
+
+.review-guest strong {
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+/* Dark blue name */
+.review-guest span {
+    font-size: 0.85rem;
+    color: var(--gray);
+    display: block;
+}
+
+.review-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 1.1rem;
+    color: #FFC107;
+}
+
+/* Gold stars */
+.review-rating span {
+    font-weight: bold;
+    color: var(--dark);
+    margin-left: 0.2rem;
+}
+
+.review-body {
+    font-size: 0.95rem;
+    color: var(--gray);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.review-footer {
+    font-size: 0.8rem;
+    color: var(--gray);
+    border-top: 1px solid var(--light-gray);
+    padding-top: 0.8rem;
+}
+
+.review-footer strong {
+    color: var(--primary-light);
+}
+
+
+/* Revenue Tab (Adapting) */
+.revenue-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.revenue-card {
+    background-color: var(--light-alt);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light);
+    text-align: center;
+    border-top: 4px solid var(--accent);
+    /* Light blue top border */
+}
+
+.revenue-card h4 {
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.revenue-card p {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0;
+}
+
+.revenue-card p.occupancy {
+    color: var(--success);
+}
+
+.revenue-chart-container {
+    background-color: var(--light-alt);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light);
+    text-align: center;
+    color: var(--gray);
+}
+
+.revenue-chart-container h3 {
+    color: var(--primary);
+}
+
+
+/* === My Profile Tab Styles === */
+#profile .form-container {
+    max-width: 800px;
+    /* Wider container for profile */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: red;
+}
+
+
+.profile-display-group {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted var(--light-gray);
+    display: flex;
+    /* Align items */
+    align-items: baseline;
+}
+
+.profile-display-group strong {
+    display: inline-block;
+    width: 180px;
+    color: var(--primary);
+    font-weight: 600;
+    flex-shrink: 0;
+    /* Prevent label from shrinking */
+}
+
+.profile-display-group span {
+    color: var(--dark);
+    word-break: break-word;
+    /* Break long emails/text */
+}
+
+/* Hide elements */
+.hidden {
+    display: none !important;
+}
+
+
+/* === Responsive Styles (Checking against new Nav) === */
+@media (max-width: 992px) {
+    nav {
+        padding: 15px 20px;
+        height: auto;
+        flex-wrap: wrap;
+    }
+
+    /* Allow wrapping */
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    /* Links below logo/button on wrap */
+    .login-container {
+        order: 2;
+        padding-right: 0;
+    }
+
+    /* Button on right */
+    .logo {
+        order: 1;
+        margin-right: 0;
+    }
+
+    /* Logo on left */
+    nav ul {
+        gap: 15px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .hotels-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 0;
+    }
+
+    .form-row .form-group {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px;
+    }
+
+    /* Adjust for potentially shorter nav */
+    nav {
+        padding: 10px 15px;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        height: 60px;
+    }
+
+    /* Force single row, adjust height */
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    /* Hide links, implement burger menu logic if needed */
+    .login-container {
+        margin-left: auto;
+        padding-right: 10px;
+    }
+
+    /* Ensure button stays right */
+    nav .login-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    /* Show mobile menu toggle if implemented */
+    /* .menu-toggle { display: block; order: 3; margin-left: 15px;} */
+
+    header.landing-header {
+        padding: 80px 15px 50px;
+    }
+
+    header.landing-header h1 {
+        font-size: 2.2rem;
+    }
+
+    section {
+        padding: 3rem 1rem;
+    }
+
+    .container {
+        padding: 1.5rem 1rem;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .page-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.85rem;
+    }
+
+    .dashboard-nav ul li a {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .stat-card p {
+        font-size: 1.8rem;
+    }
+
+    .hotels-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+
+    .review-container {
+        grid-template-columns: 1fr;
+    }
+
+    .revenue-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        max-width: 95%;
+        margin: 1rem;
+    }
+
+    .modal-header {
+        padding: 1rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .modal-body {
+        padding: 1rem 1.5rem;
+    }
+
+    .modal-footer {
+        padding: 0.8rem 1rem;
+    }
+
+    .activity-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .activity-time {
+        text-align: left;
+        margin-left: 0;
+        margin-top: 0.3rem;
+    }
+
+    .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .profile-display-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+    }
+
+    .profile-display-group strong {
+        width: auto;
+    }
+
+    /* Allow label to take natural width */
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .amenities-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .data-table {
+        font-size: 0.8rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px 10px;
+    }
+
+    .status-badge {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.7rem;
+    }
+
+    .about-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    /* Adjust glassmorphism box */
+    header.landing-header h1 {
+        font-size: 1.8rem;
+    }
+
+    header.landing-header p {
+        font-size: 1rem;
+    }
+}
