@@ -1,6 +1,5 @@
 package com.hotelbooking.cozyheaven.config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.util.Arrays;
 
@@ -13,6 +12,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -33,7 +33,10 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.cors(withDefaults())
+
+		http
+		.cors(withDefaults())
+
 		.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/auth/signup").permitAll()
 						.requestMatchers("/api/auth/login").authenticated()
@@ -56,9 +59,11 @@ public class SecurityConfig {
 						.requestMatchers("/api/hotel/deletionrequested").hasAuthority("HotelOwner")
 						.requestMatchers("/api/hotel/uploadImage/{hId}").hasAuthority("HotelOwner")
 						.requestMatchers("/api/cancellationrequest/add/{bookingID}").hasAuthority("Customer")
+
 						.requestMatchers("/api/cancellationrequest/getbyhotelowner").hasAuthority("HotelOwner")
 						.requestMatchers("/api/cancellationrequest/getbyhotelowner/all").hasAuthority("HotelOwner")
 						.requestMatchers("/api/cancellationrequest/getbyhotel/{hotelid}").hasAuthority("HotelOwner")
+
 						.requestMatchers("/api/cancellationrequest/accept/{cancellationID}").hasAuthority("HotelOwner")
 						.requestMatchers("/api/cancellationrequest/reject/{cancellationID}").hasAuthority("HotelOwner")
 						.requestMatchers("/api/refund/proceed/{cancellationID}").hasAuthority("HotelOwner")
@@ -77,9 +82,31 @@ public class SecurityConfig {
 						.requestMatchers("/api/discount/add/{hid}/{sid}").hasAuthority("Admin")//
 						.requestMatchers("/api/customer/add").permitAll()
 						.requestMatchers("/api/discount/gethotelname/{discountname}").hasAnyAuthority("Admin","Customer")
+
 						.requestMatchers("/api/room/add/{hid}").hasAuthority("HotelOwner")
 						.requestMatchers("/api/review/add{bid}").hasAuthority("Customer")
 						
+
+						.requestMatchers("/api/report/listofbookings").hasAuthority("Admin")
+						.requestMatchers("/api/report/countofbookings").hasAuthority("Admin")
+						.requestMatchers("/api/report/getbooking/{bookdate}").hasAuthority("Admin")
+						.requestMatchers("/api/report/getlistofpayment").hasAuthority("Admin")
+						.requestMatchers("/api/report/getamountlist").hasAuthority("Admin")
+						.requestMatchers("/api/report//getlistofpayments/{paymentdate}").hasAuthority("Admin")//
+						.requestMatchers("/api/report/allhotels").hasAuthority("Admin")
+						.requestMatchers("/api/report/totalamount/{hotelid}").hasAuthority("Admin")
+						.requestMatchers("/api/report/listofbookingsbycustom/{fromdate}/{todate}").hasAuthority("Admin")
+						.requestMatchers("/api/report/monthly-revenue").hasAuthority("Admin")//
+						.requestMatchers("/api/report/monthly-bookings").hasAuthority("Admin")
+						.requestMatchers("/api/report/all-reviews-count").hasAuthority("Admin")
+						.requestMatchers("/api/report/ratings-count").hasAuthority("Admin")
+						.requestMatchers("/api/report/reviews-list").hasAuthority("Admin")
+						.requestMatchers("/api/cancellationrequest/getall").hasAuthority("Admin")
+						.requestMatchers("/api/admin/getadmin").hasAuthority("Admin")
+						.requestMatchers("/api/admin/profile/update").hasAuthority("Admin")
+						.requestMatchers("/api/refund/getall").hasAnyAuthority("Admin","HotelOwner")
+						.requestMatchers("/swagger-ui/**").permitAll()
+
 						
 						
 						
@@ -90,6 +117,7 @@ public class SecurityConfig {
 
 		return http.build();
 	}
+
 	
 	@Bean
  	UrlBasedCorsConfigurationSource corsConfigurationSource() {
@@ -101,6 +129,7 @@ public class SecurityConfig {
  	    source.registerCorsConfiguration("/**", configuration);
  	    return source;
  	}
+
 
 	@Bean
 	AuthenticationProvider getAuth() {

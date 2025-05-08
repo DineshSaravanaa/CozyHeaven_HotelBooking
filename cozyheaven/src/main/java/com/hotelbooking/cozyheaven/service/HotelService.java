@@ -75,6 +75,7 @@ public class HotelService {
 		Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 		hotel.setImageUrls(path.toString());
 		return hotelRepository.save(hotel);
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.hotelbooking.cozyheaven.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import com.hotelbooking.cozyheaven.controller.BookingController;
+import com.hotelbooking.cozyheaven.exception.BookingNotFoundException;
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.model.Booking;
 import com.hotelbooking.cozyheaven.repository.BookingRepository;
@@ -15,8 +17,10 @@ import com.hotelbooking.cozyheaven.repository.BookingRepository;
 @Service
 public class BookingService 
 {
+
 	@Autowired
 	private BookingRepository bookingRepository;
+
 
 	public Booking createBooking(Booking booking) {
 		// TODO Auto-generated method stub
@@ -79,8 +83,34 @@ public class BookingService
 
 	public List<Booking> getBookingByPlace(String location) 
 	{
-		return null;
+		return bookingRepository.findByRoomHotelCity(location);
 	}
+
+	public long getCountOfBooking() 
+	{
+		return bookingRepository.count();
+	}
+
+	public List<Booking> getListOfBookingByDate(LocalDateTime bookdate) 
+	{
+		return bookingRepository.findByBookedAt(bookdate);
+	}
+	
+	public long getListOfBookingByDateCount(LocalDateTime bookdate) 
+	{
+		List<Booking> book = bookingRepository.findByBookedAt(bookdate);
+		return book.size();
+	}
+
+	public List<Booking> getListofBookingByCustom(LocalDateTime fromdate, LocalDateTime todate) throws BookingNotFoundException 
+	{
+		List<Booking> bookings = bookingRepository.findByBookedAtBetween(fromdate,todate);
+		if(bookings.isEmpty())
+			throw new BookingNotFoundException("No Records Found between these dates");
+			
+		return bookings;
+	}
+	
 
 	public List<Booking> getAllBookingByOwner(int id) {
 		

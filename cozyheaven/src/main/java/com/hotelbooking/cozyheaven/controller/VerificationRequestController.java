@@ -88,6 +88,21 @@ public class VerificationRequestController {
 		return verificationRequestService.getAll();
 	}
 	
+	@GetMapping("/pendingcount")
+	public Long getByPendingCount() {
+		return verificationRequestService.getByPendingCount();
+	}
+	
+	@GetMapping("/approvedcount")
+	public Long getByApprovedCount() {
+		return verificationRequestService.getByApprovedCount();
+	}
+	
+	@GetMapping("/cancelledcount")
+	public Long getByCancelledCount() {
+		return verificationRequestService.getByCancelledCount();
+	}
+	
 
 	
 }

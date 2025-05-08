@@ -42,8 +42,6 @@ public class BookingController {
 		
 	}
     
-
-
     // Get booking by ID
     @GetMapping("/{bookingId}")
     public Booking getBookingById(@PathVariable int bookingId) throws InvalidIDException {

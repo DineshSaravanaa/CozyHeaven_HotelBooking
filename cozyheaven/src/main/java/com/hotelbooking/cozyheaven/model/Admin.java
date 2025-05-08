@@ -24,7 +24,7 @@ public class Admin {
 	private String email;
 
 	@Column(nullable = false)
-	private long contact;
+	private Long contact;
 
 	@Column(nullable = false)
 	private LocalDateTime last_Log;
@@ -66,11 +66,11 @@ public class Admin {
 		this.email = email;
 	}
 
-	public long getContact() {
+	public Long getContact() {
 		return contact;
 	}
 
-	public void setContact(long contact) {
+	public void setContact(Long contact) {
 		this.contact = contact;
 	}
 
@@ -82,9 +82,6 @@ public class Admin {
 		this.last_Log = last_Log;
 	}
 
-	public void setContact(String string) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

@@ -7,7 +7,7 @@ import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-
+import com.hotelbooking.cozyheaven.exception.BookingNotFoundException;
 import com.hotelbooking.cozyheaven.exception.InvalidHotelNameException;
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.exception.InvalidStatusException;
@@ -38,5 +38,12 @@ public class GlobalException {
 		logger.error("Hotel Name is Not Valid"+e.getMessage());
 		return ErrorResponse.create(e, HttpStatusCode.valueOf(400), e.getMessage());
 	}
+	@ExceptionHandler(BookingNotFoundException.class)
+	public ErrorResponse InvalidHotelNameExceptionHandler(BookingNotFoundException e) {
+		return ErrorResponse.create(e, HttpStatusCode.valueOf(400), e.getMessage());
+	}
+	
+	
 	
 }
+	

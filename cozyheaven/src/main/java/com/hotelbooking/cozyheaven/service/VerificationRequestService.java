@@ -125,6 +125,31 @@ public class VerificationRequestService {
 	public List<VerificationRequest> getAll() {
 		return verificationRequestRepository.findAll();
 	}
+	
+	
+public Long getByPendingCount() {
+		
+		List<VerificationRequest> verificationRequests = verificationRequestRepository.findAll();
+		long totalpendings =  verificationRequests.stream().filter(v->v.getStatus().toString() == "PENDING").count();
+		return totalpendings;
+		
+	}
+	
+	public Long getByApprovedCount() {
+
+		List<VerificationRequest> verificationRequests = verificationRequestRepository.findAll();
+		long totalApproves = verificationRequests.stream().filter(v -> v.getStatus().toString() == "APPROVED").count();
+		return totalApproves;
+
+	}
+	
+	public Long getByCancelledCount() {
+
+		List<VerificationRequest> verificationRequests = verificationRequestRepository.findAll();
+		long totalcancels = verificationRequests.stream().filter(v -> v.getStatus().toString() == "CANCELLED").count();
+		return totalcancels;
+
+	}
 
 	
 

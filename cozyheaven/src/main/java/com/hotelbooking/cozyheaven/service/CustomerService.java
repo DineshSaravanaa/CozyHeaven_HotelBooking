@@ -1,12 +1,13 @@
 package com.hotelbooking.cozyheaven.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import com.hotelbooking.cozyheaven.controller.CustomerController;
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.exception.InvalidUsernameException;
 import com.hotelbooking.cozyheaven.model.Customer;
@@ -17,34 +18,32 @@ import com.hotelbooking.cozyheaven.repository.CustomerRepository;
 @Service
 public class CustomerService 
 {
+
+
 	@Autowired
 	private CustomerRepository customerRepository;
 	
 	@Autowired
 	private AuthRepository authRepository;
-	
 
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
 	
+	@Autowired
+	private AuthService authService;
+
+
+
+	
 
 	public Customer addCustomer(Customer customer) throws InvalidUsernameException 
 	{
+		// TODO Auto-generated method stub
 		User user = customer.getUser();
-		User user1 = authRepository.findByUsername(user.getUsername());
-		if(user1 != null)
-		{
-			throw new InvalidUsernameException("User Already Exist!!!! Keep going and Try to Login......");
-		}
-		if(user.getRole() == null)
-		{
-			user.setRole("Customer");
-		}
-		String encodedPass = bcrypt.encode(user.getPassword());
-		user.setPassword(encodedPass);
-		
-		authRepository.save(user);
+		user.setRole("CUSTOMER");
+		user = authService.signUp(user);
 		customer.setUser(user);
+		customer.setAccountCreatedAt(LocalDate.now());
 		return customerRepository.save(customer);
 	}
 
@@ -92,5 +91,14 @@ public class CustomerService
 		}
 		return optional.get();
 	}
+
+	public Customer getByUsername(String customerUserName) {
+		return customerRepository.findByUserUsername(customerUserName);
+	}
+
+	public Customer updateCustomer(Customer existingCustomer) {
+		return customerRepository.save(existingCustomer);
+	}
+
 
 }
