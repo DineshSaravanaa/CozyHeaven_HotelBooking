@@ -33,7 +33,7 @@ public class BookingController {
 	private CustomerService customerService;
 	
 	
-	 private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
+	 Logger logger = LoggerFactory.getLogger("BookingController");
 	
 	 // Create a new booking
 	@PostMapping("/add/{rid}/{cid}")

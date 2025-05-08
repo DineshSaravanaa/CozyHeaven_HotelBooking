@@ -48,9 +48,7 @@ public class HotelController {
 	@Autowired
 	private ReviewService reviewService;
 	
-	
-	private static final Logger logger = LoggerFactory.getLogger(HotelController.class);
-	
+	Logger logger = LoggerFactory.getLogger("HotelController");
 	
 
 	// Adding Hotel With Owner ID
