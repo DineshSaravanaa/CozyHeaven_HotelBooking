@@ -22,7 +22,7 @@ import com.hotelbooking.cozyheaven.service.VerificationRequestService;
 @RequestMapping("/api/verificationrequest")
 public class VerificationRequestController {
 
-    private static final Logger logger = LoggerFactory.getLogger(VerificationRequestController.class);
+    Logger logger = LoggerFactory.getLogger("VerificationRequestController");
 
     @Autowired
     private VerificationRequestService verificationRequestService;
