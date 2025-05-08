@@ -46,6 +46,12 @@ public class CancellationRequest {
 		super();
 	}
 
+	
+	public CancellationRequest() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public CancellationRequest(int id, LocalDateTime requestDate, String reason, String details, Status status,
 			LocalDateTime processedAt, Booking booking) {
 		super();

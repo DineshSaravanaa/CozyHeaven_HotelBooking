@@ -3,15 +3,25 @@ package com.hotelbooking.cozyheaven.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+
 import java.util.stream.Collectors;
+
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +47,8 @@ import com.hotelbooking.cozyheaven.service.HotelOwnerService;
 import com.hotelbooking.cozyheaven.service.HotelService;
 import com.hotelbooking.cozyheaven.service.ReviewService;
 
+
+
 @RestController
 @RequestMapping("/api/hotel")
 
@@ -49,8 +61,13 @@ public class HotelController {
 	private BookingService bookingService;
 	@Autowired
 	private ReviewService reviewService;
+
 	@Autowired
 	private BookingsDto bookingsDto;
+
+	
+	Logger logger = LoggerFactory.getLogger("HotelController");
+
 
 	Logger logger = LoggerFactory.getLogger("HotelController");
 
@@ -276,6 +293,7 @@ public class HotelController {
 		logger.info("Pending Requests Successfully Fetched For Owner :" + owner.getId());
 		return hotel.stream().filter(h -> h.getHotelOwner().getId() == owner.getId()).collect(Collectors.toList());
 	}
+
 
 	// To Get Deletion Requested Hotel (GET)
 	// 1) Get Owner By Principal

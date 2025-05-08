@@ -1,11 +1,15 @@
 package com.hotelbooking.cozyheaven.service;
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+
+import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,15 +18,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hotelbooking.cozyheaven.enums.DeletionRequest;
+import com.hotelbooking.cozyheaven.enums.HotelAvailability;
 import com.hotelbooking.cozyheaven.enums.HotelStatus;
+
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.model.Hotel;
+
 import com.hotelbooking.cozyheaven.repository.HotelRepository;
 
 @Service
 public class HotelService {
 	@Autowired
 	private HotelRepository hotelRepository;
+	
+	@Autowired
+	private  HotelOwnerService hotelOwnerService;
+	
+	
 
 	// To Save Hotel in DB
 
@@ -61,6 +73,7 @@ public class HotelService {
 		return hotelRepository.findByDeletionRequested(DeletionRequest.Yes);
 	}
 
+
 	public Hotel uploadImage(int hId, MultipartFile file) throws InvalidIDException, IOException {
 
 		Hotel hotel = hotelRepository.findById(hId).orElseThrow(() -> new InvalidIDException("Hotel Does Not Exist!"));
@@ -77,4 +90,33 @@ public class HotelService {
 		return hotelRepository.save(hotel);
 	}
 
+	public List<Hotel> getAllHotelsUnderUs() 
+	{
+		return hotelRepository.findAll();
+	}
+
+	public List<Hotel> getAll() {
+		
+		return hotelRepository.findAll();
+	}
+
+	
+
+	public Hotel getRequestById(int id) throws InvalidIDException {
+		Optional<Hotel> optional = hotelRepository.findById(id);
+		if (optional.isEmpty())
+			throw new InvalidIDException("Verification Request ID does not exist!");
+		return optional.get();
+	}
+	
+	
+	 public Hotel updateAvailability(Long hotelId, HotelAvailability availability) {
+	        Hotel hotel = hotelRepository.findById(hotelId)
+	                .orElseThrow(() -> new RuntimeException("Hotel not found with ID: " + hotelId));
+	        hotel.setIsAvailable(availability);
+	        return hotelRepository.save(hotel);
+	    }
+	
+	
+	
 }

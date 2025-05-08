@@ -1,6 +1,7 @@
 package com.hotelbooking.cozyheaven.service;
 
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
+import com.hotelbooking.cozyheaven.exception.InvalidUsernameException;
 import com.hotelbooking.cozyheaven.model.Admin;
 import com.hotelbooking.cozyheaven.repository.AdminRepository;
 
@@ -38,19 +39,19 @@ public class AdminServiceTest {
         admin1.setId(1);
         admin1.setName("Admin One");
         admin1.setEmail("admin1@example.com");
-        admin1.setContact("9876543210");
+        admin1.setContact(9876543210L);
         admin1.setLast_Log(LocalDateTime.now());
 
         admin2 = new Admin();
         admin2.setId(2);
         admin2.setName("Admin Two");
         admin2.setEmail("admin2@example.com");
-        admin2.setContact("9999999999");
+        admin2.setContact(9999999999L);
         admin2.setLast_Log(LocalDateTime.now().minusDays(2));
     }
 
     @Test
-    public void testAddAdmin() throws InvalidIDException {
+    public void testAddAdmin() throws InvalidIDException, InvalidUsernameException {
         when(adminRepository.save(admin1)).thenReturn(admin1);
         Admin saved = adminService.addAdmin(admin1);
         assertEquals("Admin One", saved.getName());

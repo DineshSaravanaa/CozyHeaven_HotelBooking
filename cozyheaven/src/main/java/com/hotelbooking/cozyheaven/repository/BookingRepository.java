@@ -1,5 +1,6 @@
 package com.hotelbooking.cozyheaven.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,5 +21,11 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	Page<Booking> findByRoomHotelHotelOwnerId(int ownerid,Pageable pageable);
 
 	List<Booking> findByRoomHotelHotelOwnerId(int id);
+
+	List<Booking> findByBookedAt(LocalDateTime bookdate);
+
+	List<Booking> findByRoomHotelCity(String location);
+
+	List<Booking> findByBookedAtBetween(LocalDateTime fromdate, LocalDateTime todate);
 
 }

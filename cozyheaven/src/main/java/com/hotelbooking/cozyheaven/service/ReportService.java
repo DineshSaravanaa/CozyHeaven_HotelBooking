@@ -1,73 +1,72 @@
 package com.hotelbooking.cozyheaven.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hotelbooking.cozyheaven.exception.InvalidIDException;
-import com.hotelbooking.cozyheaven.model.Report;
-import com.hotelbooking.cozyheaven.repository.ReportRepository;
+import com.hotelbooking.cozyheaven.model.Booking;
+import com.hotelbooking.cozyheaven.model.Payment;
+import com.hotelbooking.cozyheaven.repository.BookingRepository;
+
 
 @Service
-public class ReportService {
+public class ReportService 
+{
 	@Autowired
-	private ReportRepository reportRepository;
+	private PaymentService paymentService;
+	@Autowired
+	private BookingRepository bookingRepository;
+//For dataset in UI Projection of Charts
+	public double[] calculateMonthlyRevenue() 
+	{
+		// fetch all payments
+		List<Payment>  paymentlist = paymentService.getListOfPayment();
+		return calculateRevenue(paymentlist);
+		//filter them according to the month(using split)
+		//then calculate the sum total of each month
+		//add it to the list then return it
+		
+	}
 
+	 private double[] calculateRevenue(List<Payment> payments) {
+	        double[] monthlyRevenue = new double[12]; // Array to hold revenue for each month (Jan-Dec)
 
-	 // Add report
-    public Report addReport(Report report) {
-        return reportRepository.save(report);
-    }
+	        // Use the existing logic to calculate monthly revenue
+	        for (Payment payment : payments) {
+	            String paymentDate = payment.getPaymentDate().toString();
+//	            System.out.println(paymentDate);
+	            int month = extractMonthFromDate(paymentDate); // Extract month (1-12)
+	            monthlyRevenue[month - 1] += payment.getAmountPaid(); // Month is 1-based, so adjust index
+	        }
+	        return monthlyRevenue;
+	 }
+	 private int extractMonthFromDate(String dateString) {
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+	        LocalDateTime paymentDate = LocalDateTime.parse(dateString, formatter);
+	        return paymentDate.getMonthValue();
+	    }
+///////////////////////////////////////////////////		Monthly Bookings Count Goes Here    ///////////////////////////////////////////////////////////////////////////////////////////
 
-    // Get all reports
-    public List<Report> getAllReports() {
-        return reportRepository.findAll();
-    }
-
-    // Get report by report ID
-    public Report getReportById(int id) throws InvalidIDException {
-        Optional<Report> optional = reportRepository.findById(id);
-        if (optional.isEmpty())
-            throw new InvalidIDException("Report ID not found!");
-        return optional.get();
-    }
-
-    // Get report by booking ID
-    public Report getReportByBookingId(int bookingId) throws InvalidIDException {
-        return reportRepository.findByBookingId(bookingId)
-                .orElseThrow(() -> new InvalidIDException("Report not found for booking ID: " + bookingId));
-    }
-
-    // Get report by month & year
-    public List<Report> getReportsByMonthYear(int month, int year) {
-        return reportRepository.findByMonthAndYear(month, year);
-    }
-
-    // Get hotel occupancy reports
-    public List<Report> getOccupancyReports() {
-        return reportRepository.findAll(); 
-    }
-
-    // Get reports filtered by room type
-    public List<Report> getReportsByRoomType(String string) {
-        return reportRepository.findByRoomType(string);
-    }
-
-    // Get reports filtered by season
-    public List<Report> getReportsBySeason(String seasonName) {
-        return reportRepository.findByReportNameContainingIgnoreCase(seasonName);
-    }
-    
-    // Get report by place 
-    public List<Report> getReportsByPlace(String location) {
-        return reportRepository.findAll()
-                .stream()
-                .filter(r -> r.getReportName().toLowerCase().contains(location.toLowerCase()))
-                .collect(Collectors.toList());
-    }
+	 public double[] calculateMonthlyBookingCount() 
+		{
+			List<Booking> bookinglist = bookingRepository.findAll();
+			return calculateBookingCount(bookinglist);
+		}
+		public double[] calculateBookingCount(List<Booking> bookings)
+		{
+			double[] monthlyBooking = new double[12];
+			for(Booking booking : bookings)
+			{
+				String bookingDate = booking.getBookedAt().toString();
+				int month = extractMonthFromDate(bookingDate);
+				monthlyBooking[month-1] += 1;
+			}
+			return monthlyBooking;
+		}
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

@@ -26,8 +26,9 @@
 	
 		@Column(nullable = false)
 		private int maxCapacity;
-	
+
 		@Column(nullable = false , length = 1000)
+
 		private String aminities;
 	
 		@Enumerated(EnumType.STRING)
