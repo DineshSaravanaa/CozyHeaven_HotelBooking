@@ -2,12 +2,13 @@ package com.hotelbooking.cozyheaven.controller;
 
 import java.security.Principal;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,10 +35,13 @@ public class AuthController {
 	private AuthenticationManager authenticationManager;
 	@Autowired
 	private JwtUtil jwtUtil;
+	
+	Logger logger =LoggerFactory.getLogger("AuthController");
 
 	@PostMapping("/signup")
 	public User signUp(@RequestBody User user) throws InvalidUsernameException {
-
+		
+		logger.info("User Is Signing Up"+user.getUsername());
 		return authService.signUp(user);
 
 	}
@@ -57,6 +61,7 @@ public class AuthController {
 		authenticationManager.authenticate(auth);
 
 		// generating token
+		logger.info("Generating Token For User"+user.getUsername());
 
 		String token = jwtUtil.generateToken(user.getUsername());
 		dto.setToken(token);

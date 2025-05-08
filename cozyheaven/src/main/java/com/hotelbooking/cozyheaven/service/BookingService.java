@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.hotelbooking.cozyheaven.controller.BookingController;
 import com.hotelbooking.cozyheaven.exception.BookingNotFoundException;
 import com.hotelbooking.cozyheaven.exception.InvalidIDException;
 import com.hotelbooking.cozyheaven.model.Booking;
-import com.hotelbooking.cozyheaven.model.Room;
 import com.hotelbooking.cozyheaven.repository.BookingRepository;
 
 @Service
@@ -75,9 +76,9 @@ public class BookingService
 		return bookings;
 	}
 
-	public List<Booking> getBookingByOwner(int ownerid) {
+	public Page<Booking> getBookingByOwner(int ownerid ,Pageable pageable) {
 		
-		return bookingRepository.findByRoomHotelHotelOwnerId(ownerid);
+		return bookingRepository.findByRoomHotelHotelOwnerId(ownerid,pageable);
 	}
 
 	public List<Booking> getBookingByPlace(String location) 
@@ -110,5 +111,10 @@ public class BookingService
 		return bookings;
 	}
 	
+
+	public List<Booking> getAllBookingByOwner(int id) {
+		
+		return bookingRepository.findByRoomHotelHotelOwnerId(id);
+	}
 
 }

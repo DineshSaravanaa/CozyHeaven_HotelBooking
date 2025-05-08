@@ -19,6 +19,7 @@ import com.hotelbooking.cozyheaven.service.RoomService;
 
 @RestController
 @RequestMapping("/api/room")
+
 public class RoomController {
 	@Autowired
 	private RoomService roomService;

@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Routes, Route } from "react-router";
 import LoginPage from "./components/auth/LoginPage";
 import AfterLanding from "./components/customer/afterlanding";
@@ -17,6 +18,7 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
+
 }
 
 export default App;

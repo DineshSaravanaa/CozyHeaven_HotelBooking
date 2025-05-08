@@ -88,6 +88,8 @@ public class Hotel {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private DeletionRequest deletionRequested;
+	
+	private String deletionReason;
 
 	// relationship
 	@ManyToOne
@@ -147,6 +149,15 @@ public class Hotel {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+
+	public String getDeletionReason() {
+		return deletionReason;
+	}
+
+	public void setDeletionReason(String deletionReason) {
+		this.deletionReason = deletionReason;
 	}
 
 	public String getName() {
