@@ -1,0 +1,308 @@
+#root {
+  height: 100%;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+.login-page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #eaf0f9, #d6e0fc);
+  display: flex; /* Center the container-fluid */
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0; /* Vertical padding only */
+  box-sizing: border-box;
+}
+
+/* Override container-fluid inside login wrapper */
+.login-page-wrapper .container-fluid {
+  width: auto; /* Allow content to determine width */
+  max-width: 100%; /* Prevent overflow */
+  padding: 0 !important; /* Remove bootstrap padding */
+  margin: 0 !important;
+  display: flex; /* Use flex to manage rows inside */
+  flex-direction: column;
+  align-items: center; /* Center rows horizontally */
+}
+
+/* Hide the navbar row */
+.login-page-wrapper .row.mb-4 {
+  display: none !important;
+}
+
+/* Style the login form row */
+.login-page-wrapper .row.mt-4 {
+  display: flex; /* Ensure it uses flex */
+  justify-content: center; /* Center columns inside */
+  width: 100%; /* Take available width */
+  max-width: 420px; /* Slightly wider than card to accommodate potential padding */
+  margin: 0 !important; /* Reset margins */
+  padding: 0; /* Reset padding */
+  box-sizing: border-box;
+}
+
+/* Hide the spacer columns */
+.login-page-wrapper .row.mt-4 > .col-sm-4:first-child,
+.login-page-wrapper .row.mt-4 > .col-sm-4:last-child {
+  display: none !important;
+}
+
+/* Style the middle column containing the card */
+.login-page-wrapper .row.mt-4 > .col-sm-4 {
+  flex: 0 0 auto; /* Don't grow/shrink, take needed width */
+  width: auto; /* Adjust width based on content */
+  max-width: 100%; /* Ensure it doesn't exceed parent */
+  padding: 0 !important; /* Remove bootstrap padding */
+  margin: 0 !important;
+}
+
+
+/* --- Login Card & Form Styling (Mostly same as before) --- */
+.login-page-wrapper .card {
+background: rgba(255, 255, 255, 0.7);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border-radius: 20px;
+padding: 30px 35px;
+width: 100%;
+max-width: 380px; /* Define card max width here */
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+border: 1px solid rgba(255, 255, 255, 0.2);
+box-sizing: border-box;
+margin: 0 auto; /* Center card within its column */
+}
+
+.login-page-wrapper .card-header {
+text-align: center;
+font-size: 2.1rem;
+font-weight: 600;
+margin-bottom: 25px;
+color: #334155;
+border-bottom: none;
+background-color: transparent;
+padding: 0;
+line-height: 1.2;
+}
+
+.login-page-wrapper .form-label,
+.login-page-wrapper label {
+font-weight: 500;
+color: #475569;
+display: block;
+margin-bottom: 8px;
+font-size: 0.95rem;
+}
+
+.login-page-wrapper .form-control,
+.login-page-wrapper input[type="text"],
+.login-page-wrapper input[type="password"] {
+height: 44px;
+border-radius: 10px;
+border: 1px solid #cbd5e1;
+padding: 0 14px;
+font-size: 1rem;
+background-color: rgba(255, 255, 255, 0.9);
+transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+width: 100%;
+box-sizing: border-box;
+}
+
+.login-page-wrapper .form-control:focus,
+.login-page-wrapper input[type="text"]:focus,
+.login-page-wrapper input[type="password"]:focus {
+ border-color: #667eea;
+ box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+ background-color: #fff;
+ outline: none;
+}
+
+.login-page-wrapper .mb-4 {
+margin-bottom: 1.2rem !important;
+}
+
+.login-page-wrapper .card-body > .mb-4:first-of-type,
+.login-page-wrapper .card-body > .mb-4:nth-of-type(2) {
+color: #c53030;
+font-size: 0.875rem;
+min-height: 1.2em;
+margin-top: -0.5rem;
+margin-bottom: 0.5rem !important;
+}
+
+.login-page-wrapper .btn-primary {
+height: 45px;
+border-radius: 25px;
+background: linear-gradient(to right, #667eea, #764ba2);
+border: none;
+color: white;
+font-size: 1.1rem;
+font-weight: bold;
+transition: all 0.3s ease;
+margin-top: 15px;
+width: 100%;
+cursor: pointer;
+display: block;
+line-height: normal;
+padding: 0.75rem 1.25rem;
+box-sizing: border-box;
+font-family: inherit;
+}
+
+.login-page-wrapper .btn-primary:hover {
+background: linear-gradient(to right, #5a67d8, #6b46c1);
+transform: translateY(-2px);
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+border-color: transparent;
+}
+
+.login-page-wrapper .card-footer {
+text-align: center;
+font-size: 0.9rem;
+margin-top: 20px;
+color: #4a5568;
+border-top: none;
+background-color: transparent;
+padding: 10px 0 0 0;
+line-height: 1.6;
+}
+
+.login-page-wrapper .card-footer a {
+color: #5a67d8;
+text-decoration: none;
+display: block;
+margin-top: 6px;
+}
+.login-page-wrapper .card-footer a:first-of-type {
+  margin-top: 2px;
+}
+.login-page-wrapper .card-footer a:hover {
+text-decoration: underline;
+color: #434190;
+}
+.signup-page-wrapper .row:not(.mb-4) { /* Target row that ISN'T the navbar row */
+    width: 100%;
+    max-width: 700px; /* Original max-width for signup */
+    display: flex; /* Needed if using Bootstrap cols */
+    justify-content: center; /* Center columns */
+    align-items: center; /* Align items vertically if needed */
+    margin: 0 auto !important; /* Center the row itself */
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Hide spacer columns within the correct signup row */
+.signup-page-wrapper .row:not(.mb-4) > .col-sm-3:first-of-type,
+.signup-page-wrapper .row:not(.mb-4) > .col-sm-3:last-of-type {
+    display: none !important;
+}
+/* Ensure the main column takes space */
+.signup-page-wrapper .row:not(.mb-4) > .col-md-6 {
+    width: 100%; /* Let column fill the row */
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
+.signup-page-wrapper .card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 35px 40px;
+  width: 100%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-sizing: border-box;
+}
+
+.signup-page-wrapper .card-header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #334155;
+  border-bottom: none;
+  background-color: transparent;
+  padding: 0;
+  line-height: 1.2;
+}
+
+.signup-page-wrapper .card-body {
+    padding: 0;
+}
+
+.signup-page-wrapper .form-label {
+  font-weight: 500;
+  color: #475569;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.signup-page-wrapper .row.g-3 {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1rem;
+}
+
+.signup-page-wrapper .form-control {
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  padding: 0 14px;
+  font-size: 0.95rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  width: 100%;
+  box-sizing: border-box;
+}
+.signup-page-wrapper .form-control:focus {
+   border-color: #6366f1;
+   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+   background-color: #fff;
+   outline: none;
+}
+
+.signup-page-wrapper input[type="number"] {
+    -moz-appearance: textfield;
+}
+.signup-page-wrapper input[type="number"]::-webkit-outer-spin-button,
+.signup-page-wrapper input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.signup-page-wrapper .col-12:has(> .btn-primary) {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup-page-wrapper .btn-primary {
+  min-width: 150px;
+  width: auto;
+  padding: 10px 30px;
+  border-radius: 25px;
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1.5;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.signup-page-wrapper .btn-primary:hover {
+  background: linear-gradient(to right, #4f46e5, #7c3aed);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  border-color: transparent;
+}

@@ -1,0 +1,85 @@
+.review-form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .review-form-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .review-form-container label {
+    display: block;
+    margin: 12px 0 6px;
+  }
+  
+  .review-form-container input,
+  .review-form-container textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background-color: #f9f9f9;
+  }
+  
+  .review-form-container button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .rooms-navbar {
+    max-width: var(--max-width);
+    margin: 1rem auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(45deg, var(--header-gradient-start), var(--header-gradient-mid), var(--header-gradient-end));
+    box-shadow: var(--shadow-light);
+    border-radius: var(--border-radius-md);
+    position: relative;
+  }
+  
+  .back-btn {
+    font-weight: 600;
+    color: #e0f2ff;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .back-btn::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: var(--white);
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .back-btn:hover {
+    color: var(--white);
+  }
+  
+  .back-btn:hover::before {
+    width: 100%;
+  }

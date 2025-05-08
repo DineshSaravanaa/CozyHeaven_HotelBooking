@@ -1,0 +1,152 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .nav__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff4d4d;
+  }
+  .nav__links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  .nav__links .link a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+  }
+  .nav__links .profile-icon a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  /* Contact Page Styling */
+.contact__container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Header Styling */
+.contact__header {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  position: relative;
+}
+
+.contact__header::after {
+  content: '';
+  width: 60px;
+  height: 4px;
+  background-color: #007bff;
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* Form Styling */
+.contact__form {
+  max-width: 600px;
+  margin: auto;
+  padding: 40px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+/* Input Controls */
+.contact__form .form-control {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.contact__form input,
+.contact__form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+  resize: none;
+  font-family: inherit;
+}
+
+.contact__form input:focus,
+.contact__form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+.contact__form textarea {
+  min-height: 120px;
+}
+
+/* Submit Button */
+.contact__form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact__form button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.15);
+}
+
+/* Success Message (Optional) */
+.success-message {
+  color: green;
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+  /* Footer Styles */
+  .footer {
+    background-color: #f8f8f8;
+    padding: 40px 20px;
+    margin-top: 50px;
+  }
+  .footer__container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: auto;
+  }
+  .footer__col {
+    flex: 1 1 250px;
+    margin: 10px;
+  }
+  .footer__col h3, .footer__col h4 {
+    margin-bottom: 15px;
+  }
+  .footer__col p {
+    margin: 5px 0;
+    color: gray;
+    cursor: pointer;
+  }
+  .footer__bar {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 14px;
+    color: gray;
+  }

@@ -1,0 +1,112 @@
+/* Profile.css */
+
+body {
+    background: #eef2f7;
+  }
+  
+  .container-fluid {
+    padding: 2rem 0;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.01);
+  }
+  
+  .card-header {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+    border-radius: 16px 16px 0 0;
+    padding: 1.25rem;
+    position: relative;
+    text-align: center;
+  }
+  
+  .card-header h5 {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  
+  .card-header small {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 0 0 16px 16px;
+  }
+  
+  .row.mb-2 {
+    margin-bottom: 1.25rem;
+  }
+  
+  .font-weight-bold {
+    font-weight: 600;
+  }
+  
+  input.form-control {
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 0.75rem;
+    transition: border-color 0.3s;
+  }
+  
+  input.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  }
+  
+  .btn {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .btn-success:hover {
+    background-color: #1e7e34;
+  }
+  
+  .btn-light {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  .btn-light:hover {
+    background-color: #e2e2e2;
+  }
+  
+  @media (max-width: 768px) {
+    .col-sm-4 {
+      margin-bottom: 1.5rem;
+    }
+  }
+  .navbar {
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .navbar .btn {
+    border-radius: 8px;
+  }
+    
